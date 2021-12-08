@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable/edittextshape.xml" value="0.1259259259259259" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable/rectangle.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable/rectangleshadow.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/drawable/register_button.xml" value="0.1259259259259259" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/font-v26/font.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/font/font.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/font/saira.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/layout/activity_main.xml" value="0.20462962962962963" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/layout/activity_splash_main.xml" value="0.20462962962962963" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/layout/fragment_login.xml" value="0.22333333333333336" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/layout/fragment_register.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/hht_t/Desktop/T1000/Android Studio/WormUp1/EngineersGuide/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2328125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.11" />
+      </ProjectState>
+    </option>
+  </component>
+</project>
