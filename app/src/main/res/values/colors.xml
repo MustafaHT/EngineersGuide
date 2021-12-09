@@ -16,4 +16,7 @@
     <color name="fadewhite">#FCFFFFFF</color>
     <color name="yellow">#DBB800</color>
     <color name="gray">#898989</color>
+    <color name="bottom_bar_color">#151515</color>
+    <color name="yellow2">#FFD600</color>
+    <color name="color_nav_bottom_bar">#151515</color>
 </resources>

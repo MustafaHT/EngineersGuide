@@ -44,12 +44,12 @@
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintVertical_bias="0.134"
             motion:layout_constraintTop_toBottomOf="@+id/imageView4"
             motion:layout_constraintHorizontal_bias="0.353"
             motion:layout_constraintStart_toStartOf="parent"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent" />
         <Constraint
             android:id="@+id/textView2"
             motion:layout_constraintEnd_toEndOf="parent"

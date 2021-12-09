@@ -10,14 +10,14 @@
     tools:context=".identity.LoginFragment">
 
     <EditText
-        android:id="@+id/username_Login_EditText"
+        android:id="@+id/email_Login_EditText"
         android:layout_width="328dp"
         android:layout_height="50dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/edittextshape"
         android:ems="10"
-        android:hint=" username"
-        android:inputType="textPersonName"
+        android:hint=" email"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_Login_EditText" />
+        app:layout_constraintTop_toBottomOf="@+id/email_Login_EditText" />
 
     <TextView
         android:id="@+id/textView7"
@@ -86,7 +86,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/gears" />
+        app:srcCompat="@drawable/gears"
+        tools:ignore="UnknownIdInLayout" />
 
     <ImageView
         android:id="@+id/imageView8"

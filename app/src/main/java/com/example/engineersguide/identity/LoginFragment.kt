@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginFragment : Fragment() {
@@ -20,27 +22,43 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentLoginBinding.inflate(inflater, container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.registerButton.setOnClickListener(){
+        binding.registerButton.setOnClickListener() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
-        binding.loginButton.setOnClickListener(){
-            val username:String = binding.usernameLoginEditText.text.toString()
-            val password:String = binding.passwordLoginEditText.text.toString()
+        binding.loginButton.setOnClickListener() {
+            val username: String = binding.emailLoginEditText.text.toString()
+            val password: String = binding.passwordLoginEditText.text.toString()
 
-            if (username.isNotEmpty() && password.isNotEmpty()){
-
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                context,
+                                "Logged in Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                task.exception!!.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+            }else{
+                Toast.makeText(context, "Please Enter Your Username And Password", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
 
 }

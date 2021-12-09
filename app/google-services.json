@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "437422958476",
+    "project_id": "engineers-guide-bdbaa",
+    "storage_bucket": "engineers-guide-bdbaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437422958476:android:f90f7b18e45ca93f2158a9",
+        "android_client_info": {
+          "package_name": "com.example.engineersguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437422958476-gkbjhbuci7hk65p6n9nrmjf2r1bvtb7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk_Jr8TF3Nsv4LyXFMuwup9Iv28dC0AH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437422958476-gkbjhbuci7hk65p6n9nrmjf2r1bvtb7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

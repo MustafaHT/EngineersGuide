@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/productsFragment"
+            android:icon="@drawable/ic_baseline_app_settings_alt_24"
+            android:title="@string/components"
+            app:showAsAction="ifRoom"/>
+        <item
+            android:id="@+id/favoritesFragment"
+            android:icon="@drawable/ic_baseline_group_24"
+            android:title="@string/groups"
+            app:showAsAction="ifRoom"/>
+
+</menu>
