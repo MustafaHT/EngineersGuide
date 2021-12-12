@@ -68,13 +68,13 @@
         android:id="@+id/registerButton_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="@color/gray"
         android:text="register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPassword_register_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/bioTextViewEditText" />
 
     <TextView
         android:id="@+id/textView10"
@@ -177,5 +177,20 @@
         app:layout_constraintStart_toEndOf="@+id/firstName_register_EditText"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:layout_constraintVertical_bias="0.047" />
+
+    <EditText
+        android:id="@+id/bioTextViewEditText"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint=" write your bio ..."
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPassword_register_editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

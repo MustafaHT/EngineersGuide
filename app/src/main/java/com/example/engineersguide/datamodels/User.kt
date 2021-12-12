@@ -1,0 +1,8 @@
+package com.example.engineersguide.datamodels
+
+data class User(
+    var fName:String? = null,
+    val lName:String? = null,
+    var email:String? = null,
+    var password:String? = null,
+    var bio: String? = null)
