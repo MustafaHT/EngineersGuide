@@ -10,7 +10,7 @@ import com.example.engineersguide.model.components.Components
 interface ComponentsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun InsertComponents(Components: List<Components>)
+    suspend fun insertComponents(Components: List<Components>)
 
 
     @Query("SELECT * FROM components")

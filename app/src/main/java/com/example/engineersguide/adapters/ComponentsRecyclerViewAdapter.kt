@@ -1,18 +1,32 @@
 package com.example.engineersguide.adapters
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import com.example.engineersguide.R
 import com.example.engineersguide.main.ComponentsViewModel
 import com.example.engineersguide.model.components.Components
 
-class ComponentsRecyclerViewAdapter(context:Context,private val list: List<Components>) :
+
+
+class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     RecyclerView.Adapter<ComponentsRecyclerViewAdapter.ComponentsViewHolder>() {
+
+    val DIFF_CALLBACK = object :DiffUtil.ItemCallback<Components>(){
+        override fun areItemsTheSame(oldItem: Components, newItem: Components): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Components, newItem: Components): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,13 +44,13 @@ class ComponentsRecyclerViewAdapter(context:Context,private val list: List<Compo
 
     override fun onBindViewHolder(holder: ComponentsViewHolder, position: Int) {
 
-        val item = list[position]
+        val item = differ.currentList[position]
         holder.titleTextview.text = item.componentName
         holder.descreptionTextView.text = item.description
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return differ.currentList.size
     }
 
 
@@ -45,4 +59,9 @@ class ComponentsRecyclerViewAdapter(context:Context,private val list: List<Compo
         val descreptionTextView:TextView = itemView.findViewById(R.id.DescreptionTextView)
     }
 
+    fun submitList(list: List<Components>) {
+        differ.submitList(list)
+    }
+
 }
+

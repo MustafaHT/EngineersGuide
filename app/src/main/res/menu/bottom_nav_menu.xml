@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <item
-            android:id="@+id/productsFragment"
-            android:icon="@drawable/ic_baseline_app_settings_alt_24"
-            android:title="@string/components"
-            app:showAsAction="ifRoom"/>
+            android:id="@+id/components"
+                android:title="@string/components"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/ic_baseline_home_24"/>
         <item
-            android:id="@+id/favoritesFragment"
-            android:icon="@drawable/ic_baseline_group_24"
-            android:title="@string/groups"
-            app:showAsAction="ifRoom"/>
+                android:id="@+id/profile"
+                android:title="Favorite"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/ic_baseline_favorite_24"/>
+
+
 
 </menu>

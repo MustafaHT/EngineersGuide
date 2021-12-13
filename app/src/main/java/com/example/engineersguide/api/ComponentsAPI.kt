@@ -16,12 +16,12 @@ interface ComponentsAPI {
 
     @POST("")
     suspend fun addComponents(
-        @Header("Authorization") userId:String
+//        @Header("Authorization") userId:String
     ) : Response<Components>
 
     @DELETE("")
     suspend fun deleteComponents(
-        @Header("Authorization") userId: String
+        ComponentsId: Int
     ) : Response<Components>
 
 }
