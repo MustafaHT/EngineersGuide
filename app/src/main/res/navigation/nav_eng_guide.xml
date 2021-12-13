@@ -33,5 +33,9 @@
         android:id="@+id/componentsFragment"
         android:name="com.example.engineersguide.main.ComponentsFragment"
         android:label="fragment_components"
-        tools:layout="@layout/fragment_components" />
+        tools:layout="@layout/fragment_components" >
+        <action
+            android:id="@+id/action_componentsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

@@ -1,6 +1,9 @@
 package com.example.engineersguide.identity
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,10 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginFragment : Fragment() {
+    var SHARED_PREF_FILE = "mustafa"
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var sharedPrefEditor: SharedPreferences.Editor
+
 
     private lateinit var binding: FragmentLoginBinding
 
@@ -41,6 +48,10 @@ class LoginFragment : Fragment() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+                            sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
+                            sharedPrefEditor = sharedPref.edit()
+                            sharedPrefEditor.putBoolean("a", true)
+                            sharedPrefEditor.commit()
                             Toast.makeText(
                                 context,
                                 "Logged in Successfully",

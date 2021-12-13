@@ -20,5 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    // to disable back button completely
+    override fun onBackPressed() {
+        Toast.makeText(this, "This button has been disabled", Toast.LENGTH_SHORT).show()
+    }
 }
