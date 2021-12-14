@@ -37,5 +37,16 @@
         <action
             android:id="@+id/action_componentsFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_componentsFragment_to_addingComponentsFragment"
+            app:destination="@id/addingComponentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addingComponentsFragment"
+        android:name="com.example.engineersguide.main.AddingComponentsFragment"
+        android:label="AddingComponentsFragment" >
+        <action
+            android:id="@+id/action_addingComponentsFragment_to_componentsFragment"
+            app:destination="@id/componentsFragment" />
     </fragment>
 </navigation>

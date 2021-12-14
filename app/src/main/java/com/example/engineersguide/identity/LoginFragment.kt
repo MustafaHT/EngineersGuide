@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class LoginFragment : Fragment() {
-    var SHARED_PREF_FILE = "mustafa"
+    var SHARED_PREF_FILE = "Auth"
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
 

@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +15,7 @@ import com.example.engineersguide.databinding.FragmentComponentsBinding
 import com.example.engineersguide.model.components.Components
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class ComponentsFragment : Fragment() {
@@ -42,6 +43,13 @@ class ComponentsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+//        val firebaseAuth:FirebaseAuth = FirebaseAuth.getInstance()
+//        val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
+//
+//        if (firebaseUser != null ){
+//            findNavController().navigate(R.id.componentsFragment)
+//        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +74,9 @@ class ComponentsFragment : Fragment() {
 
 //        componentsViewModel.callComponents()
 
+        binding.addingComponentsButton.setOnClickListener(){
+            findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
+        }
     }
 
     fun observers() {
@@ -103,6 +114,11 @@ class ComponentsFragment : Fragment() {
                 sharedPrefEditor.putBoolean("a", false)
                 sharedPrefEditor.commit()
                 findNavController().navigate(R.id.action_componentsFragment_to_loginFragment)
+
+                if (logoutItem.isChecked){
+                    Toast.makeText(context, "LoggedOut Successfully", Toast.LENGTH_SHORT).show()
+                }
+
             }
 
 
