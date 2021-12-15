@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.database.FirebaseDatabase
 
@@ -16,18 +20,34 @@ class MainActivity : AppCompatActivity() {
 //    sharedPrefEditor.putBoolean("a", true)
 //    sharedPrefEditor.commit()
 
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
 
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
+    }
+
 
     // to disable back button completely
     override fun onBackPressed() {
         Toast.makeText(this, "This button has been disabled", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }

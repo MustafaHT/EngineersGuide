@@ -13,12 +13,22 @@ import com.example.engineersguide.databinding.FragmentRegisterBinding
 import com.example.engineersguide.datamodels.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 private const val TAG = "RegisterFragment"
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var auth: FirebaseAuth
+
+    private val userCollectionRef = Firebase.firestore.collection("Users")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,9 +44,11 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-        var databaseRef = FirebaseDatabase.getInstance().getReference("User")
 
+        //========================================================================
+//        val uid = auth.currentUser?.uid
+//        var databaseRef = FirebaseDatabase.getInstance().getReference("User")
+        //========================================================================
 
         binding.backRegisterImageButton.setOnClickListener(){
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
@@ -51,14 +63,15 @@ class RegisterFragment : Fragment() {
             val bioTextView:String = binding.bioTextViewEditText.text.toString()
 
             val user = User(fName,lName,email,password,bioTextView)
-
+            saveUser(user)
             Log.d(TAG,"")
 
 
-
-            if(uid != null){
-                databaseRef.child(uid).setValue(user)
-            }
+//  ===========================================================================
+//            if(uid != null){
+//                databaseRef.child(uid).setValue(user)
+//            }
+//  ===========================================================================
             if(fName.isNotEmpty() && lName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener(){
                     task ->
@@ -83,5 +96,20 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(context, "Please Fill Up All The Blanks", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun saveUser(person: User) = CoroutineScope(Dispatchers.IO).launch {
+
+        try {
+            userCollectionRef.add(person).await()
+            withContext(Dispatchers.Main){
+                Toast.makeText(context, "Successfully saved data", Toast.LENGTH_SHORT).show()
+            }
+        }catch (e:Exception){
+            withContext(Dispatchers.Main){
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }
