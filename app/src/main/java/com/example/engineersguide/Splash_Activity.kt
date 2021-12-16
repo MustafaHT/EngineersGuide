@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.example.engineersguide.databinding.ActivitySplashBinding
+import com.example.engineersguide.repositories.ApiServiceRepository
+import com.example.engineersguide.repositories.RoomServiceRepository
 import java.util.zip.Inflater
 
 class Splash_Activity : AppCompatActivity() {
@@ -16,6 +18,8 @@ class Splash_Activity : AppCompatActivity() {
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ApiServiceRepository.init(this)
+        RoomServiceRepository.init(this)
 
         binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener{
             override fun onTransitionStarted(

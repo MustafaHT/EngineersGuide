@@ -12,10 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.adapters.ComponentsRecyclerViewAdapter
 import com.example.engineersguide.databinding.FragmentComponentsBinding
-import com.example.engineersguide.model.components.Components
+import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 
 class ComponentsFragment : Fragment() {
@@ -23,7 +22,7 @@ class ComponentsFragment : Fragment() {
 
     private lateinit var binding: FragmentComponentsBinding
 
-    private var allComponents = listOf<Components>()
+    private var allComponents = mutableListOf<ComponentApi>()
 
     private lateinit var componentsAdapter: ComponentsRecyclerViewAdapter
     private val componentsViewModel: ComponentsViewModel by activityViewModels()
@@ -72,7 +71,7 @@ class ComponentsFragment : Fragment() {
 
         observers()
 
-//        componentsViewModel.callComponents()
+       componentsViewModel.callComponents()
 
         binding.addingComponentsButton.setOnClickListener(){
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
@@ -83,24 +82,24 @@ class ComponentsFragment : Fragment() {
 
         componentsViewModel.componentsLiveData.observe(viewLifecycleOwner, {
 
-//            binding.progressBar.animate().alpha(0f).setDuration(1000)
-//            componentsAdapter.submitList(it)
-//            allComponents = it
-//            binding.componentsRecyclerView.animate().alpha(1f)
+            binding.progressBar.animate().alpha(0f).setDuration(1000)
+            componentsAdapter.submitList(it)
+           allComponents.addAll(it)
+            binding.componentsRecyclerView.animate().alpha(1f)
 
         })
 
-//        componentsViewModel.componentsErrorLiveData.observe(viewLifecycleOwner, { error ->
-//            error?.let {
-//                Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
-//
-//                if (error == "Unauthorized")
-//                    findNavController().navigate()
-//
-//                componentsViewModel.componentsErrorLiveData.postValue(null)
-//
-//            }
-//        })
+        componentsViewModel.componentsErrorLiveData.observe(viewLifecycleOwner, { error ->
+            error?.let {
+                Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
+
+                if (error == "Unauthorized")
+//                    findNavController().navigate(R.id.)
+
+                componentsViewModel.componentsErrorLiveData.postValue(null)
+
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -135,7 +134,7 @@ class ComponentsFragment : Fragment() {
         requireActivity().menuInflater.inflate(R.menu.app_bar_menu, menu)
 
         logoutItem = menu.findItem(R.id.logout_item)
-        val search = menu?.findItem(R.id.app_bar_search)
+        val search = menu.findItem(R.id.app_bar_search)
         val searchView = search?.actionView as SearchView
         searchView.queryHint = "Search Component"
 
@@ -149,11 +148,13 @@ class ComponentsFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                componentsAdapter.submitList(
-                    allComponents.filter {
-                        it.description.lowercase().contains(newText!!.lowercase())
+                if (newText != null) {
+                    if (newText.isNotBlank()){
+                        componentsAdapter.submitList(allComponents.filter {
+                            it.componentName.lowercase().contains(newText!!.lowercase())
+                        })
                     }
-                )
+                }
                 return true
             }
 

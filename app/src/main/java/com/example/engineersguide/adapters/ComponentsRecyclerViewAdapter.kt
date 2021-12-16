@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.engineersguide.R
 import com.example.engineersguide.main.ComponentsViewModel
-import com.example.engineersguide.model.components.Components
+import com.example.engineersguide.model.components.ComponentApi
 
 
 
 class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     RecyclerView.Adapter<ComponentsRecyclerViewAdapter.ComponentsViewHolder>() {
 
-    val DIFF_CALLBACK = object :DiffUtil.ItemCallback<Components>(){
-        override fun areItemsTheSame(oldItem: Components, newItem: Components): Boolean {
+    val DIFF_CALLBACK = object :DiffUtil.ItemCallback<ComponentApi>(){
+        override fun areItemsTheSame(oldItem: ComponentApi, newItem: ComponentApi): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Components, newItem: Components): Boolean {
+        override fun areContentsTheSame(oldItem: ComponentApi, newItem: ComponentApi): Boolean {
             return oldItem == newItem
         }
     }
@@ -59,7 +59,7 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
         val descreptionTextView:TextView = itemView.findViewById(R.id.DescreptionTextView)
     }
 
-    fun submitList(list: List<Components>) {
+    fun submitList(list: List<ComponentApi>) {
         differ.submitList(list)
     }
 

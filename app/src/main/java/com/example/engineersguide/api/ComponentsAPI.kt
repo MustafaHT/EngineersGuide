@@ -1,27 +1,33 @@
 package com.example.engineersguide.api
 
-import com.example.engineersguide.model.components.Components
+import com.example.engineersguide.model.components.ComponentApi
 import retrofit2.Response
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ComponentsAPI {
 
-    @GET("")
+    @GET("/api/v1/component")
     suspend fun getComponents(
 //        @Header("Authorization") token: String
-    ) : Response<Components>
+    ) : Response<List<ComponentApi>>
 
-    @POST("")
+
+    @POST("/api/v1/component")
     suspend fun addComponents(
-//        @Header("Authorization") userId:String
-    ) : Response<Components>
+        @Body title:String,
+        @Body descreption:String,
+        @Body functionality:String,
+        @Body equations:String,
+        @Body source1:String,
+        @Body source2: String,
+        @Body source3: String
+    ) : Response<ComponentApi>
 
-    @DELETE("")
+    @DELETE("/api/v1/component/1")
     suspend fun deleteComponents(
-        ComponentsId: Int
-    ) : Response<Components>
+        @Query("componentsId")componentsId:Int
+    ) : Response<ComponentApi>
+
+//    suspend fun addComponents(): Call<Components>
 
 }

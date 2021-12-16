@@ -1,9 +1,11 @@
 package com.example.engineersguide.model.components
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
-data class Components(
+@Entity
+data class ComponentApi(
     @SerializedName("component_imageUrl")
     val componentImageUrl: String,
     @SerializedName("component_name")
@@ -12,6 +14,7 @@ data class Components(
     val description: String,
     @SerializedName("equations")
     val equations: String,
+    @PrimaryKey
     @SerializedName("id")
     val id: String,
     @SerializedName("isFavorite")

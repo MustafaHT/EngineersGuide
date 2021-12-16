@@ -3,13 +3,11 @@ package com.example.engineersguide.identity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.engineersguide.api.ComponentsAPI
-import com.example.engineersguide.model.components.Components
-import com.google.firebase.auth.FirebaseAuth
+import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.repositories.ApiServiceRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
+
 //import java.lang.Exception
 //import kotlin.Exception
 
@@ -17,18 +15,18 @@ import okhttp3.Dispatcher
 private const val TAG = "LoginViewModel"
 class LoginViewModel:ViewModel() {
 
+    private val apiRepo = ApiServiceRepository.get()
 
-
-    val loginLiveData = MutableLiveData<List<Components>>()
+    val loginLiveData = MutableLiveData<List<ComponentApi>>()
     val loginErrorLiveData = MutableLiveData<String>()
 
 
     fun login(email:String , password:String){
 
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
 
             try {
-
+//                val response = apiRepo
 
             }catch (e:Exception){
 

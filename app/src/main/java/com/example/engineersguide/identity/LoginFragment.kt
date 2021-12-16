@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentLoginBinding
@@ -19,6 +20,8 @@ class LoginFragment : Fragment() {
     var SHARED_PREF_FILE = "Auth"
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
+
+    private lateinit var mLoginViewModel: LoginViewModel
 
 
     private lateinit var binding: FragmentLoginBinding
@@ -35,6 +38,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         binding.registerButton.setOnClickListener() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -71,5 +76,4 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
 }
