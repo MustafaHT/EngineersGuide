@@ -14,13 +14,7 @@ interface ComponentsAPI {
 
     @POST("/api/v1/component")
     suspend fun addComponents(
-        @Body title:String,
-        @Body descreption:String,
-        @Body functionality:String,
-        @Body equations:String,
-        @Body source1:String,
-        @Body source2: String,
-        @Body source3: String
+        @Body component:ComponentApi
     ) : Response<ComponentApi>
 
     @DELETE("/api/v1/component/1")

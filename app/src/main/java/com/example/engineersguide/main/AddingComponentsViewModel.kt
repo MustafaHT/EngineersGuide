@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.ApiServiceRepository
+import com.google.firebase.components.Component
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -16,21 +17,22 @@ class AddingComponentsViewModel:ViewModel() {
 private val apiRepo = ApiServiceRepository.get()
 
 
-    val addedComponent = MutableLiveData<ComponentApi>()
+    val addedComponentLiveData = MutableLiveData<ComponentApi>()
     val addedComponentLiveError = MutableLiveData<String>()
 
 
 
-    fun callComponents(title:String,dec:String,func:String,equ:String,rec:String,rec2:String,rec3: String) {
+    fun callComponents(title:String,descreption:String,functionality:String,equation:String,rec1:String,rec2:String,rec3: String) {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = apiRepo.addComponent(title,dec,func,equ,rec,rec2,rec3)
+                val component = ComponentApi("",title,descreption,equation,"",false,rec1)
+                val response = apiRepo.addComponent(component)
 
                 if (response.isSuccessful) {
                     response.body()?.run {
                         Log.d(TAG, this.toString())
-                        addedComponent.postValue(this)
+                        addedComponentLiveData.postValue(this)
                         //  componentsErrorLiveData.postValue(response.message())
 
                     }

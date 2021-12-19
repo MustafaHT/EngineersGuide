@@ -75,6 +75,8 @@ class ComponentsFragment : Fragment() {
 
         binding.addingComponentsButton.setOnClickListener(){
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
+
+
         }
     }
 
@@ -84,7 +86,7 @@ class ComponentsFragment : Fragment() {
 
             binding.progressBar.animate().alpha(0f).setDuration(1000)
             componentsAdapter.submitList(it)
-           allComponents.addAll(it)
+            allComponents.addAll(it)
             binding.componentsRecyclerView.animate().alpha(1f)
 
         })

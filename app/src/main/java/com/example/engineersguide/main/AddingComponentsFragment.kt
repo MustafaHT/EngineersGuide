@@ -1,6 +1,8 @@
 package com.example.engineersguide.main
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,39 +11,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
 import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.ApiServiceRepository
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 
 private lateinit var apiServiceRepository: ApiServiceRepository
-private const val TAG = "AddingComponentsFragmen"
+private const val TAG= "AddingComponentsFragment"
 class AddingComponentsFragment : Fragment() {
 
     private lateinit var binding: FragmentAddingComponentsBinding
 
+    private val addingComponentsViewModel = AddingComponentsViewModel()
+
+    private lateinit var progressDialog: ProgressDialog
+    val addList = mutableListOf<ComponentApi>()
     var mStorage:StorageReference? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setTitle("Loading...")
+        progressDialog.setCancelable(false)
         // Inflate the layout for this fragment
         binding = FragmentAddingComponentsBinding.inflate(inflater,container,false)
         return (binding.root)
     }
 
+    @SuppressLint("LongLogTag")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observer()
+
         mStorage = FirebaseStorage.getInstance().reference
 
         binding.componentImageButton.setOnClickListener(){
@@ -52,18 +62,47 @@ class AddingComponentsFragment : Fragment() {
 
         }
 
+
         binding.addComponent.setOnClickListener(){
-//             submitComponen(
-//                binding.titleEditText.text.toString(),
-//                binding.descreptionEditText.text.toString(),
-//                binding.functionlityEditText.text.toString(),
-//                binding.equationsEditText.text.toString(),
-//                binding.source1EditText.text.toString(),
-//                binding.source2EditText.text.toString(),
-//                binding.source3EditText.text.toString()
-//            )
+            val title =  binding.titleEditText.text.toString()
+            val descreption =  binding.descreptionEditText.text.toString()
+            val functionality = binding.functionlityEditText.text.toString()
+            val equation = binding.equationsEditText.text.toString()
+            val source1 = binding.source1EditText.text.toString()
+            val source2 = binding.source2EditText.text.toString()
+            val source3 = binding.source3EditText.text.toString()
+            Log.d(TAG,"add Component Button")
+            addingComponentsViewModel.callComponents(
+                title,
+                descreption,
+                functionality,
+                equation,
+                source1,
+                source2,
+                source3
+                )
+
             findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+
         }
+
+        //=============================================================================================================
+
+        // giving a limit for of to the title
+        val titleLimit = 35
+        binding.titleEditText.doOnTextChanged { text, start, before, count ->
+            var titleLength = text?.length.toString()
+
+            if (titleLimit - titleLength.toInt() == 0){
+
+                Toast.makeText(requireActivity(), "Title name reached its limit", Toast.LENGTH_LONG).show()
+            }
+            binding.titleLengthTextView.text = (titleLimit - titleLength.toInt()).toString()
+
+        }
+        //============================================================================================================
+
+
 
         Log.d(TAG,mStorage.toString())
 
@@ -73,21 +112,8 @@ class AddingComponentsFragment : Fragment() {
 
     }
 
-//    private suspend fun submitComponent(title: String, description: String, functionality: String, equations:String, source1: String, source2: String, source3: String){
-//        val call: Call<ComponentApi> = apiServiceRepository.retrofitApi.addComponents(title,description,functionality,equations,source1,source2,source3)
-//        call.enqueue(object : Callback<ComponentApi>{
-//            override fun onResponse(call: Call<ComponentApi>, response: Response<ComponentApi>) {
-//                Snackbar.make(requireActivity(),requireView(),"${response.body()}",Snackbar.LENGTH_LONG).show()
-//            }
-//
-//            override fun onFailure(call: Call<ComponentApi>, t: Throwable) {
-//                Log.d("TAG","onFailure:${t.message}")
-//            }
-//
-//        })
-//    }
 
-
+    @SuppressLint("LongLogTag")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -107,5 +133,24 @@ class AddingComponentsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    @SuppressLint("LongLogTag")
+    fun observer(){
+        addingComponentsViewModel.addedComponentLiveData.observe(viewLifecycleOwner,{
+            it?.let {
+                Log.d(TAG,"observer liveData")
+                addList.add(it)
+                Log.d("here", it.toString())
+                progressDialog.dismiss()
+                findNavController().popBackStack()
+                addingComponentsViewModel.addedComponentLiveData.postValue(null)
+            }
+        })
+        addingComponentsViewModel.addedComponentLiveError.observe(viewLifecycleOwner,{
+            Log.d(TAG,"observer errorLiveData")
+            progressDialog.dismiss()
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        })
     }
 }
