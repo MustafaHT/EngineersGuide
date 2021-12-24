@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.adapters.ComponentsRecyclerViewAdapter
+import com.example.engineersguide.api.ComponentsAPI
 import com.example.engineersguide.databinding.FragmentComponentsBinding
 import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
@@ -75,7 +76,6 @@ class ComponentsFragment : Fragment() {
 
         binding.addingComponentsButton.setOnClickListener(){
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
-
 
         }
     }
@@ -153,7 +153,7 @@ class ComponentsFragment : Fragment() {
                 if (newText != null) {
                     if (newText.isNotBlank()){
                         componentsAdapter.submitList(allComponents.filter {
-                            it.componentName.lowercase().contains(newText!!.lowercase())
+                            it.componentTitle.lowercase().contains(newText!!.lowercase())
                         })
                     }
                 }
@@ -173,5 +173,25 @@ class ComponentsFragment : Fragment() {
 //            logoutItem.isVisible = false
 //            profileItem.isVisible = false
 //        }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+            requireActivity().menuInflater.inflate(R.menu.additional_menu,menu)
+
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.edit_item -> Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
+            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
+        }
+        return super.onContextItemSelected(item)
+
+    }
+
 
 }

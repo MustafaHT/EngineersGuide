@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "437422958476",
+    "firebase_url": "https://engineers-guide-bdbaa-default-rtdb.firebaseio.com",
     "project_id": "engineers-guide-bdbaa",
     "storage_bucket": "engineers-guide-bdbaa.appspot.com"
   },

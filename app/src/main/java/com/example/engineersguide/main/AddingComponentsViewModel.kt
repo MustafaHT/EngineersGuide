@@ -26,7 +26,7 @@ private val apiRepo = ApiServiceRepository.get()
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val component = ComponentApi("",title,descreption,equation,"",false,rec1)
+                val component = ComponentApi("",title,descreption,functionality,equation,"",rec1,rec2,rec3,false)
                 val response = apiRepo.addComponent(component)
 
                 if (response.isSuccessful) {

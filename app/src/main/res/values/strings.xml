@@ -7,4 +7,6 @@
     <string name="profile">profile</string>
     <string name="search">Search</string>
     <string name="groups">Groups</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

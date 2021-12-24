@@ -5,13 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.database.FirebaseDatabase
+import kotlin.system.measureNanoTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,18 +26,20 @@ class MainActivity : AppCompatActivity() {
 //    sharedPrefEditor.putBoolean("a", true)
 //    sharedPrefEditor.commit()
 
+
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
                 as NavHostFragment
 
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -50,4 +58,6 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+
 }

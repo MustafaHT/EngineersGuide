@@ -2,13 +2,17 @@ package com.example.engineersguide.identity
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
@@ -36,6 +40,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,14 +60,16 @@ class LoginFragment : Fragment() {
                         if (task.isSuccessful) {
                             sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
                             sharedPrefEditor = sharedPref.edit()
-                            sharedPrefEditor.putBoolean("a", true)
+                            sharedPrefEditor.putBoolean("auth", true)
                             sharedPrefEditor.commit()
                             Toast.makeText(
                                 context,
                                 "Logged in Successfully",
                                 Toast.LENGTH_SHORT
                             ).show()
-                findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
+
+                            binding.loginMotionLayout.setTransitionVisibility(MotionLayout.VISIBLE)
+                            findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
                         } else {
                             Toast.makeText(
                                 context,

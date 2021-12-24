@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_componentsFragment_to_addingComponentsFragment"
             app:destination="@id/addingComponentsFragment" />
+        <action
+            android:id="@+id/action_componentsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addingComponentsFragment"
@@ -49,4 +52,18 @@
             android:id="@+id/action_addingComponentsFragment_to_componentsFragment"
             app:destination="@id/componentsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.engineersguide.main.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/action_detailsFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.example.engineersguide.main.WebFragment"
+        android:label="fragment_web"
+        tools:layout="@layout/fragment_web" />
 </navigation>
