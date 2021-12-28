@@ -1,5 +1,6 @@
 package com.example.engineersguide.adapters
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
@@ -39,7 +40,7 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ComponentsRecyclerViewAdapter.ComponentsViewHolder {
+    ): ComponentsViewHolder {
 
         return ComponentsViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -50,6 +51,7 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
         )
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ComponentsViewHolder, position: Int) {
 
         val item = differ.currentList[position]
@@ -62,6 +64,10 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
             it.findNavController().navigate(R.id.action_componentsFragment_to_detailsFragment)
         }
 
+        if(holder.descreptionTextView.text.length >= 205){
+            holder.descreptionTextView.text = holder.descreptionTextView.text.substring(0, 205 - 3) + "..."
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -72,7 +78,7 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     class ComponentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextview:TextView = itemView.findViewById(R.id.titleTextView)
         val descreptionTextView:TextView = itemView.findViewById(R.id.DescreptionTextView)
-        val cardView:CardView = itemView.findViewById(R.id.CardView)
+//        val cardView:CardView = itemView.findViewById(R.id.CardView)
     }
 
     fun submitList(list: List<ComponentApi>) {

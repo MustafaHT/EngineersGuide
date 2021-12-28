@@ -7,145 +7,159 @@
     android:orientation="vertical"
     tools:context=".main.DetailsFragment">
 
-    <TextView
-        android:id="@+id/titleTextView_Details"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="141dp"
-        tools:src="@tools:sample/avatars" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descreption:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/titleTextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/descreptionTextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/imageView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="141dp"
+                tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/viewDescreption_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView"
-        android:textColor="@color/blues"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descreption:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Functionality:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/descreptionTextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/functionalityTextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/viewDescreption_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="view more"
+                android:textColor="@color/blues"
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/viewFunctionality_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="TextView"
-        android:textColor="@color/blues"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Functionality:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Equations:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/functionalityTextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/equationsTextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+            <TextView
+                android:id="@+id/viewFunctionality_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="view more"
+                android:textColor="@color/blues"
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Resources:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Equations:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/source1TextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/blues" />
+            <TextView
+                android:id="@+id/equationsTextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
-    <ImageButton
-        android:id="@+id/imageButtonForSource1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_web_24" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Resources:"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/source2TextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/blues" />
+            <TextView
+                android:id="@+id/source1TextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/blues" />
 
-    <ImageButton
-        android:id="@+id/imageButtonForSource2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_web_24" />
+            <ImageButton
+                android:id="@+id/imageButtonForSource1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_web_24" />
 
-    <TextView
-        android:id="@+id/source3TextView_Details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/blues" />
+            <TextView
+                android:id="@+id/source2TextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/blues" />
 
-    <ImageButton
-        android:id="@+id/imageButtonForSource3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_web_24" />
+            <ImageButton
+                android:id="@+id/imageButtonForSource2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_web_24" />
+
+            <TextView
+                android:id="@+id/source3TextView_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/blues" />
+
+            <ImageButton
+                android:id="@+id/imageButtonForSource3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_web_24" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
