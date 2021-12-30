@@ -27,7 +27,7 @@ class ApiServiceRepository(context: Context) {
         retrofitApi.getComponents()
 
     suspend fun addComponent(
-      component:ComponentApi
+        component: ComponentApi
     ) =
         retrofitApi.addComponents(component)
 

@@ -21,7 +21,7 @@ class Splash_Activity : AppCompatActivity() {
         ApiServiceRepository.init(this)
         RoomServiceRepository.init(this)
 
-        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener{
+        binding.motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(
                 motionLayout: MotionLayout?,
                 startId: Int,
@@ -38,9 +38,10 @@ class Splash_Activity : AppCompatActivity() {
             ) {
 
             }
-                    // here to let our splash move automatically...
+
+            // here to let our splash move automatically...
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
-                val intent = Intent(this@Splash_Activity,MainActivity::class.java)
+                val intent = Intent(this@Splash_Activity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

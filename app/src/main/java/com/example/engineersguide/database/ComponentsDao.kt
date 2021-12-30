@@ -14,6 +14,6 @@ interface ComponentsDao {
 
 
     @Query("SELECT * FROM componentapi")
-    suspend fun getComponents():List<ComponentApi>
+    suspend fun getComponents(): List<ComponentApi>
 
 }

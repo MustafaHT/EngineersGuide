@@ -11,22 +11,41 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "AddingComponentsViewMod"
-class AddingComponentsViewModel:ViewModel() {
+
+class AddingComponentsViewModel : ViewModel() {
 
 
-private val apiRepo = ApiServiceRepository.get()
+    private val apiRepo = ApiServiceRepository.get()
 
 
     val addedComponentLiveData = MutableLiveData<ComponentApi>()
     val addedComponentLiveError = MutableLiveData<String>()
 
 
-
-    fun callComponents(title:String,descreption:String,functionality:String,equation:String,rec1:String,rec2:String,rec3: String) {
+    fun callComponents(
+        title: String,
+        descreption: String,
+        functionality: String,
+        equation: String,
+        rec1: String,
+        rec2: String,
+        rec3: String
+    ) {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val component = ComponentApi("",title,descreption,functionality,equation,"",rec1,rec2,rec3,false)
+                val component = ComponentApi(
+                    "",
+                    title,
+                    descreption,
+                    functionality,
+                    equation,
+                    "",
+                    rec1,
+                    rec2,
+                    rec3,
+                    false
+                )
                 val response = apiRepo.addComponent(component)
 
                 if (response.isSuccessful) {
@@ -42,7 +61,7 @@ private val apiRepo = ApiServiceRepository.get()
                 }
 
             } catch (e: Exception) {
-                Log.d(TAG,e.message.toString())
+                Log.d(TAG, e.message.toString())
 
                 addedComponentLiveError.postValue(e.message.toString())
                 /// componentsLiveData.postValue(databaseRepo.getComponents())

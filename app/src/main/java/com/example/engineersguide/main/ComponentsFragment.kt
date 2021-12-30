@@ -51,6 +51,7 @@ class ComponentsFragment : Fragment() {
 //            findNavController().navigate(R.id.componentsFragment)
 //        }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,9 +73,9 @@ class ComponentsFragment : Fragment() {
 
         observers()
 
-       componentsViewModel.callComponents()
+        componentsViewModel.callComponents()
 
-        binding.addingComponentsButton.setOnClickListener(){
+        binding.addingComponentsButton.setOnClickListener() {
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
 
         }
@@ -98,7 +99,7 @@ class ComponentsFragment : Fragment() {
                 if (error == "Unauthorized")
 //                    findNavController().navigate(R.id.)
 
-                componentsViewModel.componentsErrorLiveData.postValue(null)
+                    componentsViewModel.componentsErrorLiveData.postValue(null)
 
             }
         })
@@ -106,7 +107,7 @@ class ComponentsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.logout_item -> {
                 FirebaseAuth.getInstance().signOut()
                 sharedPref =
@@ -116,7 +117,7 @@ class ComponentsFragment : Fragment() {
                 sharedPrefEditor.commit()
                 findNavController().navigate(R.id.action_componentsFragment_to_loginFragment)
 
-                if (logoutItem.isChecked){
+                if (logoutItem.isChecked) {
                     Toast.makeText(context, "LoggedOut Successfully", Toast.LENGTH_SHORT).show()
                 }
 
@@ -151,7 +152,7 @@ class ComponentsFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    if (newText.isNotBlank()){
+                    if (newText.isNotBlank()) {
                         componentsAdapter.submitList(allComponents.filter {
                             it.componentTitle.lowercase().contains(newText!!.lowercase())
                         })
@@ -180,14 +181,15 @@ class ComponentsFragment : Fragment() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-            requireActivity().menuInflater.inflate(R.menu.additional_menu,menu)
+        requireActivity().menuInflater.inflate(R.menu.additional_menu, menu)
 
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.edit_item -> Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
-            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
+            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT)
+                .show()
         }
         return super.onContextItemSelected(item)
 

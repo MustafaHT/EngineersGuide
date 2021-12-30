@@ -7,7 +7,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "RegisterViewModel"
-class RegisterViewModel:ViewModel() {
+
+class RegisterViewModel : ViewModel() {
 
 //        val registerLiveData = MutableLiveData<>()
 //        val registerErrorLiveData = MutableLiveData<>()

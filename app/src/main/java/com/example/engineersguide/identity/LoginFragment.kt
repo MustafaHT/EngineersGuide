@@ -58,7 +58,10 @@ class LoginFragment : Fragment() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
+                            sharedPref = requireActivity().getSharedPreferences(
+                                SHARED_PREF_FILE,
+                                Context.MODE_PRIVATE
+                            )
                             sharedPrefEditor = sharedPref.edit()
                             sharedPrefEditor.putBoolean("auth", true)
                             sharedPrefEditor.commit()
@@ -68,7 +71,7 @@ class LoginFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            binding.loginMotionLayout.setTransitionVisibility(MotionLayout.VISIBLE)
+//                            binding.loginMotionLayout.setTransitionVisibility(MotionLayout.VISIBLE)
                             findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
                         } else {
                             Toast.makeText(
@@ -78,8 +81,12 @@ class LoginFragment : Fragment() {
                             ).show()
                         }
                     }
-            }else{
-                Toast.makeText(context, "Please Enter Your Username And Password", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Please Enter Your Username And Password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

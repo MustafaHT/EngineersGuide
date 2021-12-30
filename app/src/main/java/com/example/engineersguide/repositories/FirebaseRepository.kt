@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 //private var mutableLiveData = MutableLiveData<FirebaseUser>()
 //private var firebaseAuth: FirebaseUser(email,password)
 
-class FirebaseRepository(val context:Context) {
+class FirebaseRepository(val context: Context) {
 
 
 //    suspend fun register(email:String,password:String) =

@@ -112,6 +112,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-storage'
 
+    // for PDF Document :)
+    implementation 'com.itextpdf:itextg:5.5.10'
 
 
 }

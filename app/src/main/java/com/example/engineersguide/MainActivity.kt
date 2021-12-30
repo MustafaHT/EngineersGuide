@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
 
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -55,9 +54,9 @@ class MainActivity : AppCompatActivity() {
 
     // to disable back button completely
     override fun onBackPressed() {
-        if ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController.currentDestination?.label == "fragment_web"){
-                super.onBackPressed()
-        }else {
+        if ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController.currentDestination?.label == "fragment_web") {
+            super.onBackPressed()
+        } else {
             Toast.makeText(this, "This button has been disabled", Toast.LENGTH_SHORT).show()
         }
     }
@@ -68,8 +67,6 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-
 
 
 }

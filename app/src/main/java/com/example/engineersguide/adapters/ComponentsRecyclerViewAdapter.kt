@@ -21,11 +21,10 @@ import com.example.engineersguide.main.ComponentsViewModel
 import com.example.engineersguide.model.components.ComponentApi
 
 
-
 class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     RecyclerView.Adapter<ComponentsRecyclerViewAdapter.ComponentsViewHolder>() {
 
-    val DIFF_CALLBACK = object :DiffUtil.ItemCallback<ComponentApi>(){
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ComponentApi>() {
         override fun areItemsTheSame(oldItem: ComponentApi, newItem: ComponentApi): Boolean {
             return oldItem.id == newItem.id
         }
@@ -64,8 +63,9 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
             it.findNavController().navigate(R.id.action_componentsFragment_to_detailsFragment)
         }
 
-        if(holder.descreptionTextView.text.length >= 205){
-            holder.descreptionTextView.text = holder.descreptionTextView.text.substring(0, 205 - 3) + "..."
+        if (holder.descreptionTextView.text.length >= 205) {
+            holder.descreptionTextView.text =
+                holder.descreptionTextView.text.substring(0, 205 - 3) + "..."
         }
 
     }
@@ -76,15 +76,14 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
 
 
     class ComponentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextview:TextView = itemView.findViewById(R.id.titleTextView)
-        val descreptionTextView:TextView = itemView.findViewById(R.id.DescreptionTextView)
+        val titleTextview: TextView = itemView.findViewById(R.id.titleTextView)
+        val descreptionTextView: TextView = itemView.findViewById(R.id.DescreptionTextView)
 //        val cardView:CardView = itemView.findViewById(R.id.CardView)
     }
 
     fun submitList(list: List<ComponentApi>) {
         differ.submitList(list)
     }
-
 
 
 }

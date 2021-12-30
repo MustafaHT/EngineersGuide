@@ -23,13 +23,12 @@ import com.example.engineersguide.model.components.ComponentApi
 import kotlin.Unit.toString
 
 private const val TAG = "WebFragment"
+
 class WebFragment : Fragment() {
 
-    private lateinit var binding:FragmentWebBinding
+    private lateinit var binding: FragmentWebBinding
     val selectedComponent = MutableLiveData<ComponentApi>()
     private val viewModel: ComponentsViewModel by activityViewModels()
-
-
 
 
     override fun onCreateView(
@@ -37,7 +36,7 @@ class WebFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentWebBinding.inflate(inflater,container,false)
+        binding = FragmentWebBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -46,29 +45,28 @@ class WebFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        webViewSetup(requireArguments().getString("link",""))
-
+        webViewSetup(requireArguments().getString("link", ""))
 
 
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun webViewSetup(link:String){
+    private fun webViewSetup(link: String) {
         binding.wbWebView.webViewClient = WebViewClient()
 
         binding.wbWebView.apply {
-                    if (link.substring(0,8) != "https://") {
-                        loadUrl("https://www.google.com/search?q=${link}")
-                        settings.javaScriptEnabled = true
-                        settings.safeBrowsingEnabled = true
-                    }else {
-                        loadUrl(link)
-                        settings.javaScriptEnabled = true
-                        settings.safeBrowsingEnabled = true
-                        }
-                    }
+            if (link.substring(0, 8) != "https://") {
+                loadUrl("https://www.google.com/search?q=${link}")
+                settings.javaScriptEnabled = true
+                settings.safeBrowsingEnabled = true
+            } else {
+                loadUrl(link)
+                settings.javaScriptEnabled = true
+                settings.safeBrowsingEnabled = true
+            }
         }
+    }
 //    fun webViewOnBackPressed(){
 //        if (binding.wbWebView.canGoBack()) binding.wbWebView.goBack()
 //    }

@@ -7,7 +7,8 @@ import com.example.engineersguide.model.components.ComponentApi
 
 
 private const val DATABASE_NAME = "components-database"
-class RoomServiceRepository(context:Context) {
+
+class RoomServiceRepository(context: Context) {
 
     private val database = Room.databaseBuilder(
         context,

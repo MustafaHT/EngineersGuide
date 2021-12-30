@@ -25,31 +25,26 @@ class ComponentsViewModel : ViewModel() {
     val componentsLiveData = MutableLiveData<List<ComponentApi>>()
     val componentsErrorLiveData = MutableLiveData<String>()
 
-    fun callComponents(){
+    fun callComponents() {
         viewModelScope.launch {
             try {
                 val response = apiRepo.getComponents()
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     response.body()?.run {
 
                         componentsLiveData.postValue(this)
                         databaseRepo.insertComponents(this)
 
                     }
-                }else{
+                } else {
                     componentsErrorLiveData.postValue(response.message())
                 }
-            }catch (e:Exception)
-            {
-                    componentsErrorLiveData.postValue(e.message.toString())
+            } catch (e: Exception) {
+                componentsErrorLiveData.postValue(e.message.toString())
             }
         }
 
     }
-
-
-
-
 
 
 }
