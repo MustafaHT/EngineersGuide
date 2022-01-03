@@ -165,6 +165,12 @@
                 android:layout_height="wrap_content"
                 android:text="pdf" />
 
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="delete" />
+
         </LinearLayout>
     </ScrollView>
 

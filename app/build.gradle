@@ -115,5 +115,10 @@ dependencies {
     // for PDF Document :)
     implementation 'com.itextpdf:itextg:5.5.10'
 
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:20.+'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.nineoldandroids:library:2.4.0'
+
 
 }

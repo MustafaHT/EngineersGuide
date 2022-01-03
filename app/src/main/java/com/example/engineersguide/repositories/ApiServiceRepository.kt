@@ -31,7 +31,7 @@ class ApiServiceRepository(context: Context) {
     ) =
         retrofitApi.addComponents(component)
 
-    suspend fun deleteComponent(ComponentsId: Int) =
+    suspend fun deleteComponent(ComponentsId: ComponentApi) =
         retrofitApi.deleteComponents(ComponentsId)
 
 

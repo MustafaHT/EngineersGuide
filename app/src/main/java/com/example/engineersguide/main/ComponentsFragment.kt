@@ -1,7 +1,9 @@
 package com.example.engineersguide.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -9,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.engineersguide.R
 import com.example.engineersguide.adapters.ComponentsRecyclerViewAdapter
-import com.example.engineersguide.api.ComponentsAPI
 import com.example.engineersguide.databinding.FragmentComponentsBinding
+import com.example.engineersguide.helper.MyButton
+import com.example.engineersguide.helper.MySwiperHelper
+import com.example.engineersguide.listener.MyButtonClickListener
 import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +38,11 @@ class ComponentsFragment : Fragment() {
 
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
+
+    private lateinit var selectedItem: ComponentApi
+
+
+//    private lateinit var componentFragmentSwipeLayout:SwipeLayout
 
 //    private lateinit var user: FirebaseAuth
 
@@ -63,12 +73,59 @@ class ComponentsFragment : Fragment() {
 
     }
 
+    @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
         componentsAdapter = ComponentsRecyclerViewAdapter(componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
+
+//        setItemTouchHelper()
+
+        val swipe = object : MySwiperHelper(context, binding.componentsRecyclerView, 300) {
+            override fun instantiateMyButton(
+                viewHolder: RecyclerView.ViewHolder,
+                buffer: MutableList<MyButton>
+            ) {
+                // add button
+                buffer.add(
+                    MyButton(requireActivity(),
+                        "Delete",
+                        30,
+                        R.drawable.ic_baseline_delete_24,
+                        Color.parseColor("#FF3c30"),
+                        object : MyButtonClickListener {
+                            override fun onClick(pos: Int) {
+                                componentsViewModel.deleteComponent(selectedItem)
+                            }
+                        }
+
+                    )
+                )
+
+                buffer.add(
+                    MyButton(requireActivity(),
+                        "Edit",
+                        30,
+                        R.drawable.ic_baseline_edit_24,
+                        Color.parseColor("#FF9502"),
+                        object : MyButtonClickListener {
+                            override fun onClick(pos: Int) {
+                                Toast.makeText(
+                                    context,
+                                    "edit button has been clicked",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                    )
+                )
+            }
+
+        }
+
 
 
         observers()
@@ -79,6 +136,11 @@ class ComponentsFragment : Fragment() {
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
 
         }
+//        componentFragmentSwipeLayout = view.findViewById(R.layout.components_item_layout)
+//        componentFragmentSwipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut)
+//        componentFragmentSwipeLayout.addDrag(SwipeLayout.DragEdge.Left,componentFragmentSwipeLayout.findViewById(R.id.linear_sol))
+//        componentFragmentSwipeLayout.addDrag(SwipeLayout.DragEdge.Right,componentFragmentSwipeLayout.findViewById(R.id.linear_sag))
+
     }
 
     fun observers() {
@@ -195,5 +257,100 @@ class ComponentsFragment : Fragment() {
 
     }
 
+//    private fun setItemTouchHelper(){
+//        ItemTouchHelper(object : ItemTouchHelper.Callback(){
+//
+//            private val limitScrollX = dipToPx(300f,this@ComponentsFragment)
+//            private var currentScrollX = 0
+//            private var currentScrollXWhenInActivity = 0
+//            private var initXWhenInActivity = 0f
+//            private var firstInActive = false
+//
+//            override fun getMovementFlags(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder
+//            ): Int {
+//                val dragFlags = 0
+//                val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+//                return makeMovementFlags(dragFlags,swipeFlags)
+//            }
+//
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                return true
+//            }
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+//
+//            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+//                return Integer.MAX_VALUE.toFloat()
+//            }
+//
+//            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+//                return  Integer.MAX_VALUE.toFloat()
+//            }
+//
+//            override fun onChildDraw(
+//                c: Canvas,
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                dX: Float,
+//                dY: Float,
+//                actionState: Int,
+//                isCurrentlyActive: Boolean
+//            ) {
+//                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+//
+//                    if (dX == 0f){
+//                        currentScrollX = viewHolder.itemView.scrollX
+//                        firstInActive = true
+//                    }
+//
+//                    if (isCurrentlyActive){
+//                        var scrollOffset = currentScrollX + (-dX).toInt()
+//                        if (scrollOffset > limitScrollX){
+//                            scrollOffset = limitScrollX
+//                        }else if(scrollOffset < 0){
+//                            scrollOffset = 0
+//                    }
+//                        viewHolder.itemView.scrollTo(scrollOffset, 0)
+//                    }else{
+//                        if(firstInActive){
+//                            firstInActive = false
+//                            currentScrollXWhenInActivity = viewHolder.itemView.scrollX
+//                            initXWhenInActivity = dX
+//                        }
+//                        if (viewHolder.itemView.scrollX < limitScrollX){
+//                            viewHolder.itemView.scrollTo((currentScrollXWhenInActivity * dX / initXWhenInActivity).toInt(),0)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun clearView(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder
+//            ) {
+//                super.clearView(recyclerView, viewHolder)
+//
+//                if (viewHolder.itemView.scrollX > limitScrollX){
+//                    viewHolder.itemView.scrollTo(limitScrollX, 0)
+//                }else if(viewHolder.itemView.scrollX < 0){
+//                    viewHolder.itemView.scrollTo(0,0)
+//                }
+//            }
+//
+//        }).apply {
+//            attachToRecyclerView(binding.componentsRecyclerView)
+//        }
+//    }
+//
+//
+//    private fun dipToPx(dipValue:Float, context: ComponentsFragment):Int{
+//        return (dipValue * context.resources.displayMetrics.density).toInt()
+//    }
 
 }

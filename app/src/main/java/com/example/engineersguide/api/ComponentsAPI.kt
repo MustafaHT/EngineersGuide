@@ -11,17 +11,14 @@ interface ComponentsAPI {
 //        @Header("Authorization") token: String
     ): Response<List<ComponentApi>>
 
-
     @POST("/api/v1/component")
     suspend fun addComponents(
         @Body component: ComponentApi
     ): Response<ComponentApi>
 
-    @DELETE("/api/v1/component/1")
+    @DELETE("/api/v1/component/:id")
     suspend fun deleteComponents(
-        @Query("componentsId") componentsId: Int
+        @Query("componentsId") componentsId: ComponentApi
     ): Response<ComponentApi>
-
-//    suspend fun addComponents(): Call<Components>
 
 }

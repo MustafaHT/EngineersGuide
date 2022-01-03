@@ -3,26 +3,23 @@ package com.example.engineersguide.adapters
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.core.view.get
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.engineersguide.R
 import com.example.engineersguide.main.ComponentsViewModel
 import com.example.engineersguide.model.components.ComponentApi
+import java.lang.ref.WeakReference
 
 
 class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     RecyclerView.Adapter<ComponentsRecyclerViewAdapter.ComponentsViewHolder>() {
+
+    private lateinit var selevetedComponent: ComponentApi
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ComponentApi>() {
         override fun areItemsTheSame(oldItem: ComponentApi, newItem: ComponentApi): Boolean {
@@ -68,6 +65,12 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
                 holder.descreptionTextView.text.substring(0, 205 - 3) + "..."
         }
 
+        holder.onDeleteClcik = {
+            viewModel.deleteComponent(selevetedComponent)
+        }
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -76,9 +79,31 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
 
 
     class ComponentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextview: TextView = itemView.findViewById(R.id.titleTextView)
-        val descreptionTextView: TextView = itemView.findViewById(R.id.DescreptionTextView)
+        private val view = WeakReference(itemView)
+
+        val titleTextview: TextView = itemView.findViewById(R.id.title_textView_Component)
+        val descreptionTextView: TextView = itemView.findViewById(R.id.descreption_textView_Component)
 //        val cardView:CardView = itemView.findViewById(R.id.CardView)
+        val deleteImageView:ImageView=itemView.findViewById(R.id.delete_imageView)
+
+        var onDeleteClcik:((RecyclerView.ViewHolder) -> Unit)? = null
+        init {
+            view.get()?.let{
+                it.setOnClickListener {
+                    if(view.get()?.scrollX != 0){
+                        view.get()?.scrollTo(0,0)
+                    }
+                }
+
+                deleteImageView.setOnClickListener {
+                    onDeleteClcik?.let {
+                        // here
+                        onDeleteClcik?.let { it1 -> it1(this) }
+                    }
+                }
+
+            }
+        }
     }
 
     fun submitList(list: List<ComponentApi>) {

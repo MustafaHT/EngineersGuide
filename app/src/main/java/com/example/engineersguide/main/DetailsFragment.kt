@@ -2,7 +2,6 @@ package com.example.engineersguide.main
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -11,26 +10,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.checkSelfPermission
-import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
-import com.example.engineersguide.adapters.ComponentsRecyclerViewAdapter
-import com.example.engineersguide.api.ComponentsAPI
-import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
 import com.example.engineersguide.databinding.FragmentDetailsBinding
 import com.example.engineersguide.model.components.ComponentApi
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
-import org.w3c.dom.Document
-import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,6 +30,8 @@ class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var selectedComponent: ComponentApi
     private val viewModel: ComponentsViewModel by activityViewModels()
+
+    private lateinit var selectedComponentId:ComponentApi
 
     private val STORAGE_CODE = 1001
 
@@ -146,6 +138,11 @@ class DetailsFragment : Fragment() {
                 savePDF()
             }
         }
+        binding.deleteButton.setOnClickListener {
+            viewModel.deleteComponent(selectedComponent)
+            findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
+        }
+
     }
 
     private fun savePDF() {

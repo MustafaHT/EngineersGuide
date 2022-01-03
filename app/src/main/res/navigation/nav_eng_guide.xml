@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_webFragment"
             app:destination="@id/webFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_componentsFragment"
+            app:destination="@id/componentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/webFragment"
