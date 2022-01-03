@@ -6,13 +6,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -31,7 +30,9 @@ class DetailsFragment : Fragment() {
     private lateinit var selectedComponent: ComponentApi
     private val viewModel: ComponentsViewModel by activityViewModels()
 
-    private lateinit var selectedComponentId:ComponentApi
+
+    private lateinit var deleteItem: MenuItem
+
 
     private val STORAGE_CODE = 1001
 
@@ -42,6 +43,7 @@ class DetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -49,6 +51,8 @@ class DetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.callComponents()
 
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
             it?.let { component ->
@@ -139,10 +143,42 @@ class DetailsFragment : Fragment() {
             }
         }
         binding.deleteButton.setOnClickListener {
-            viewModel.deleteComponent(selectedComponent)
+            viewModel.deleteComponent(selectedComponent.id.toInt())
             findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        requireActivity().menuInflater.inflate(R.menu.additional_menu, menu)
+        deleteItem = menu.findItem(R.id.delete_item)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.delete_item -> {
+                viewModel.deleteComponent(selectedComponent.id.toInt())
+                findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
+            }
+            R.id.edit_item ->{
+                findNavController().navigate(R.id.action_detailsFragment_to_editFragment)
+            }
+            R.id.pdf_item -> {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
+                    if (checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                        val permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        requestPermissions(permission, STORAGE_CODE)
+                    }else{
+                        savePDF()
+                    }
+                }else{
+                    savePDF()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun savePDF() {

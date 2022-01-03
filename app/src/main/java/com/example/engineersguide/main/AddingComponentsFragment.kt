@@ -36,6 +36,8 @@ class AddingComponentsFragment : Fragment() {
     val addList = mutableListOf<ComponentApi>()
     var mStorage: StorageReference? = null
 
+    private lateinit var viewModel: ComponentsViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,7 +87,6 @@ class AddingComponentsFragment : Fragment() {
             )
 
             findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
-
         }
 
         //=============================================================================================================

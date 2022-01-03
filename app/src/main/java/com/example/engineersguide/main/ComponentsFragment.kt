@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.auth.FirebaseAuth
 
 
+private const val TAG = "ComponentsFragment"
 class ComponentsFragment : Fragment() {
 
 
@@ -77,11 +79,11 @@ class ComponentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        componentsViewModel.callComponents()
 
         componentsAdapter = ComponentsRecyclerViewAdapter(componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
 
-//        setItemTouchHelper()
 
         val swipe = object : MySwiperHelper(context, binding.componentsRecyclerView, 300) {
             override fun instantiateMyButton(
@@ -97,7 +99,10 @@ class ComponentsFragment : Fragment() {
                         Color.parseColor("#FF3c30"),
                         object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
-                                componentsViewModel.deleteComponent(selectedItem)
+                                Log.d(TAG,"not working")
+                                viewHolder.layoutPosition
+                                componentsViewModel.deleteComponent(allComponents[viewHolder.layoutPosition].id.toInt())
+                                componentsViewModel.callComponents()
                             }
                         }
 
@@ -119,9 +124,9 @@ class ComponentsFragment : Fragment() {
                                 ).show()
                             }
                         }
-
                     )
                 )
+
             }
 
         }
@@ -130,7 +135,7 @@ class ComponentsFragment : Fragment() {
 
         observers()
 
-        componentsViewModel.callComponents()
+
 
         binding.addingComponentsButton.setOnClickListener() {
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
@@ -247,110 +252,14 @@ class ComponentsFragment : Fragment() {
 
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.edit_item -> Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
-            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT)
-                .show()
-        }
-        return super.onContextItemSelected(item)
-
-    }
-
-//    private fun setItemTouchHelper(){
-//        ItemTouchHelper(object : ItemTouchHelper.Callback(){
-//
-//            private val limitScrollX = dipToPx(300f,this@ComponentsFragment)
-//            private var currentScrollX = 0
-//            private var currentScrollXWhenInActivity = 0
-//            private var initXWhenInActivity = 0f
-//            private var firstInActive = false
-//
-//            override fun getMovementFlags(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder
-//            ): Int {
-//                val dragFlags = 0
-//                val swipeFlags = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-//                return makeMovementFlags(dragFlags,swipeFlags)
-//            }
-//
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                return true
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-//
-//            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-//                return Integer.MAX_VALUE.toFloat()
-//            }
-//
-//            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-//                return  Integer.MAX_VALUE.toFloat()
-//            }
-//
-//            override fun onChildDraw(
-//                c: Canvas,
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                dX: Float,
-//                dY: Float,
-//                actionState: Int,
-//                isCurrentlyActive: Boolean
-//            ) {
-//                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-//
-//                    if (dX == 0f){
-//                        currentScrollX = viewHolder.itemView.scrollX
-//                        firstInActive = true
-//                    }
-//
-//                    if (isCurrentlyActive){
-//                        var scrollOffset = currentScrollX + (-dX).toInt()
-//                        if (scrollOffset > limitScrollX){
-//                            scrollOffset = limitScrollX
-//                        }else if(scrollOffset < 0){
-//                            scrollOffset = 0
-//                    }
-//                        viewHolder.itemView.scrollTo(scrollOffset, 0)
-//                    }else{
-//                        if(firstInActive){
-//                            firstInActive = false
-//                            currentScrollXWhenInActivity = viewHolder.itemView.scrollX
-//                            initXWhenInActivity = dX
-//                        }
-//                        if (viewHolder.itemView.scrollX < limitScrollX){
-//                            viewHolder.itemView.scrollTo((currentScrollXWhenInActivity * dX / initXWhenInActivity).toInt(),0)
-//                        }
-//                    }
-//                }
-//            }
-//
-//            override fun clearView(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder
-//            ) {
-//                super.clearView(recyclerView, viewHolder)
-//
-//                if (viewHolder.itemView.scrollX > limitScrollX){
-//                    viewHolder.itemView.scrollTo(limitScrollX, 0)
-//                }else if(viewHolder.itemView.scrollX < 0){
-//                    viewHolder.itemView.scrollTo(0,0)
-//                }
-//            }
-//
-//        }).apply {
-//            attachToRecyclerView(binding.componentsRecyclerView)
+//    override fun onContextItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.edit_item -> Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
+//            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT)
+//                .show()
 //        }
-//    }
+//        return super.onContextItemSelected(item)
 //
-//
-//    private fun dipToPx(dipValue:Float, context: ComponentsFragment):Int{
-//        return (dipValue * context.resources.displayMetrics.density).toInt()
 //    }
 
 }

@@ -44,7 +44,7 @@ class ComponentsViewModel : ViewModel() {
 
     }
 
-    fun deleteComponent(componentsId: ComponentApi){
+    fun deleteComponent(componentsId: Int){
         viewModelScope.launch {
             apiRepo.deleteComponent(componentsId)
         }

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightBlack"
+    tools:context=".main.EditFragment">
+
+    <EditText
+        android:id="@+id/title_EditText_EditFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        android:maxLength="35"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Component_ImageView_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Component_ImageView_EditFragment"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="112dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/descreption_EditText_EditFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_EditText_EditFragment"
+        tools:src="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/descreption_EditText_EditFragment"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:gravity="start|center_horizontal|top"
+        android:hint=" Descreption ..."
+        android:inputType="textMultiLine"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/functionlity_EditText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Component_ImageView_EditFragment" />
+
+    <EditText
+        android:id="@+id/functionlity_EditText_EditFragment"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:gravity="start|center_horizontal|top"
+        android:hint="Functionlaity ..."
+        android:inputType="textMultiLine"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/equations_editText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descreption_EditText_EditFragment" />
+
+    <EditText
+        android:id="@+id/equations_editText_EditFragment"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:gravity="left"
+        android:hint=" Equations ..."
+        android:inputType="textMultiLine"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/source1_EditText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/functionlity_EditText_EditFragment" />
+
+    <EditText
+        android:id="@+id/source1_EditText_EditFragment"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:hint=" Source 1"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/source2_EditText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/equations_editText_EditFragment" />
+
+    <EditText
+        android:id="@+id/source2_EditText_EditFragment"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:hint=" Source 2"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/source3_EditText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source1_EditText_EditFragment" />
+
+    <EditText
+        android:id="@+id/source3_EditText_EditFragment"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edittextshape"
+        android:ems="10"
+        android:hint=" Source 3"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/save_component_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source2_EditText_EditFragment" />
+
+    <Button
+        android:id="@+id/save_component_EditFragment"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/gray"
+        android:minHeight="32dp"
+        android:text="add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source3_EditText_EditFragment" />
+
+    <ImageButton
+        android:id="@+id/component_ImageButton_EditFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintBottom_toTopOf="@+id/descreption_EditText_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Component_ImageView_EditFragment"
+        app:layout_constraintTop_toBottomOf="@+id/title_EditText_EditFragment"
+        app:layout_constraintVertical_bias="0.755" />
+
+    <TextView
+        android:id="@+id/title_length_textView_EditFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="35"
+        android:textColor="@color/fadeWhite"
+        app:layout_constraintBottom_toTopOf="@+id/component_ImageButton_EditFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toEndOf="@+id/Component_ImageView_EditFragment"
+        app:layout_constraintTop_toBottomOf="@+id/title_EditText_EditFragment"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

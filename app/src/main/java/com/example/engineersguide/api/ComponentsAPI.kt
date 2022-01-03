@@ -8,7 +8,7 @@ interface ComponentsAPI {
 
     @GET("/api/v1/component")
     suspend fun getComponents(
-//        @Header("Authorization") token: String
+
     ): Response<List<ComponentApi>>
 
     @POST("/api/v1/component")
@@ -16,9 +16,9 @@ interface ComponentsAPI {
         @Body component: ComponentApi
     ): Response<ComponentApi>
 
-    @DELETE("/api/v1/component/:id")
+    @DELETE("/api/v1/component/{id}")
     suspend fun deleteComponents(
-        @Query("componentsId") componentsId: ComponentApi
+        @Path("id") componentsId: Int
     ): Response<ComponentApi>
 
 }

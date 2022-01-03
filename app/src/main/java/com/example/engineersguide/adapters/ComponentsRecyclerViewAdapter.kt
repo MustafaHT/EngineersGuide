@@ -65,9 +65,9 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
                 holder.descreptionTextView.text.substring(0, 205 - 3) + "..."
         }
 
-        holder.onDeleteClcik = {
-            viewModel.deleteComponent(selevetedComponent)
-        }
+//        holder.onDeleteClcik = {
+////            viewModel.deleteComponent(selevetedComponent)
+//        }
 
 
 
@@ -84,26 +84,25 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
         val titleTextview: TextView = itemView.findViewById(R.id.title_textView_Component)
         val descreptionTextView: TextView = itemView.findViewById(R.id.descreption_textView_Component)
 //        val cardView:CardView = itemView.findViewById(R.id.CardView)
-        val deleteImageView:ImageView=itemView.findViewById(R.id.delete_imageView)
 
-        var onDeleteClcik:((RecyclerView.ViewHolder) -> Unit)? = null
-        init {
-            view.get()?.let{
-                it.setOnClickListener {
-                    if(view.get()?.scrollX != 0){
-                        view.get()?.scrollTo(0,0)
-                    }
-                }
-
-                deleteImageView.setOnClickListener {
-                    onDeleteClcik?.let {
-                        // here
-                        onDeleteClcik?.let { it1 -> it1(this) }
-                    }
-                }
-
-            }
-        }
+//        var onDeleteClcik:((RecyclerView.ViewHolder) -> Unit)? = null
+//        init {
+//            view.get()?.let{
+//                it.setOnClickListener {
+//                    if(view.get()?.scrollX != 0){
+//                        view.get()?.scrollTo(0,0)
+//                    }
+//                }
+//
+//                deleteImageView.setOnClickListener {
+//                    onDeleteClcik?.let {
+//                        // here
+//                        onDeleteClcik?.let { it1 -> it1(this) }
+//                    }
+//                }
+//
+//            }
+//        }
     }
 
     fun submitList(list: List<ComponentApi>) {

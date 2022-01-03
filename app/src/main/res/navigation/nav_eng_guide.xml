@@ -63,10 +63,22 @@
         <action
             android:id="@+id/action_detailsFragment_to_componentsFragment"
             app:destination="@id/componentsFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/webFragment"
         android:name="com.example.engineersguide.main.WebFragment"
         android:label="fragment_web"
         tools:layout="@layout/fragment_web" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.engineersguide.main.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>
