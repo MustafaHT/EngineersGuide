@@ -20,8 +20,13 @@ class ComponentsViewModel : ViewModel() {
 
     val selectedComponent = MutableLiveData<ComponentApi>()
 
+    val allComponents = mutableListOf<ComponentApi>()
+    private lateinit var componentsId:ComponentApi
+
     val componentsLiveData = MutableLiveData<List<ComponentApi>>()
     val componentsErrorLiveData = MutableLiveData<String>()
+
+
 
     fun callComponents() {
         viewModelScope.launch {
@@ -46,7 +51,25 @@ class ComponentsViewModel : ViewModel() {
 
     fun deleteComponent(componentsId: Int){
         viewModelScope.launch {
-            apiRepo.deleteComponent(componentsId)
+            try {
+                val response = apiRepo.deleteComponent(componentsId)
+                if (response.isSuccessful){
+                    response.body()?.run {
+                        componentsLiveData.postValue(listOf(this))
+                    }
+                }else{
+                    componentsErrorLiveData.postValue(response.message())
+                }
+            }catch (e:Exception){
+                componentsErrorLiveData.postValue(e.message.toString())
+            }
+
+        }
+    }
+
+    fun updateComponent(componentApi: Int,component:ComponentApi){
+        viewModelScope.launch {
+            apiRepo.updataComponent(componentApi,component)
         }
     }
 

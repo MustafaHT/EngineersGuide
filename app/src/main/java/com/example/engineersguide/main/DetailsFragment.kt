@@ -112,20 +112,32 @@ class DetailsFragment : Fragment() {
         binding.imageButtonForSource1.setOnClickListener {
             Bundle().apply {
                 putString("link", selectedComponent.source1)
-                it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                if (selectedComponent.source1.isEmpty()){
+                    Toast.makeText(requireContext(), "you don't have any source to go to", Toast.LENGTH_SHORT).show()
+                }else {
+                    it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                }
             }
 
         }
         binding.imageButtonForSource2.setOnClickListener {
             Bundle().apply {
                 putString("link", selectedComponent.source2)
-                it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                if (selectedComponent.source2.isEmpty()){
+                    Toast.makeText(requireContext(), "you don't have any source to go to", Toast.LENGTH_SHORT).show()
+                }else {
+                    it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                }
             }
         }
         binding.imageButtonForSource3.setOnClickListener {
             Bundle().apply {
                 putString("link", selectedComponent.source3)
-                it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                if (selectedComponent.source3.isEmpty()){
+                    Toast.makeText(requireContext(), "you don't have any source to go to", Toast.LENGTH_SHORT).show()
+                }else {
+                    it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
+                }
             }
         }
 

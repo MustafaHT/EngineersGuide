@@ -76,6 +76,10 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+    fun setComponent(index:Int){
+        viewModel.selectedComponent.postValue(differ.currentList[index])
+
+    }
 
 
     class ComponentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -34,6 +34,9 @@ class ApiServiceRepository(context: Context) {
     suspend fun deleteComponent(ComponentsId: Int) =
         retrofitApi.deleteComponents(ComponentsId)
 
+    suspend fun updataComponent(componentId: Int,component: ComponentApi) =
+        retrofitApi.updateComponents(componentId,component)
+
 
     companion object {
         private var instance: ApiServiceRepository? = null

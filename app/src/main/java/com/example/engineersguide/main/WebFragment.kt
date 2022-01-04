@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentOnAttachListener
 import androidx.fragment.app.activityViewModels
@@ -56,15 +57,16 @@ class WebFragment : Fragment() {
         binding.wbWebView.webViewClient = WebViewClient()
 
         binding.wbWebView.apply {
-            if (link.substring(0, 8) != "https://") {
-                loadUrl("https://www.google.com/search?q=${link}")
-                settings.javaScriptEnabled = true
-                settings.safeBrowsingEnabled = true
-            } else {
-                loadUrl(link)
-                settings.javaScriptEnabled = true
-                settings.safeBrowsingEnabled = true
-            }
+
+                if (link.substring(0, 8) != "https://") {
+                    loadUrl("https://www.google.com/search?q=${link}")
+                    settings.javaScriptEnabled = true
+                    settings.safeBrowsingEnabled = true
+                } else {
+                    loadUrl(link)
+                    settings.javaScriptEnabled = true
+                    settings.safeBrowsingEnabled = true
+                }
         }
     }
 //    fun webViewOnBackPressed(){

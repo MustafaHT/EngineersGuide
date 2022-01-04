@@ -7,24 +7,24 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class ComponentApi(
     @SerializedName("component_imageUrl")
-    val componentImageUrl: String,
+    var componentImageUrl: String,
     @SerializedName("component_name")
-    val componentTitle: String,
+    var componentTitle: String,
     @SerializedName("description")
-    val description: String,
+    var description: String,
     @SerializedName("functionality")
-    val functionality: String,
+    var functionality: String,
     @SerializedName("equations")
-    val equations: String,
+    var equations: String,
     @PrimaryKey
     @SerializedName("id")
     val id: String,
     @SerializedName("source1")
-    val source1: String,
+    var source1: String,
     @SerializedName("source2")
-    val source2: String,
+    var source2: String,
     @SerializedName("source3")
-    val source3: String,
+    var source3: String,
     @SerializedName("isFavorite")
-    val isFavorite: Boolean
+    var isFavorite: Boolean
 )

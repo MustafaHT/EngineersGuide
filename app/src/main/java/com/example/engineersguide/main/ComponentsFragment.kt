@@ -11,6 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.engineersguide.R
@@ -41,7 +44,8 @@ class ComponentsFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
 
-    private lateinit var selectedItem: ComponentApi
+    private lateinit var selectedComponent: ComponentApi
+    private val viewModel: ComponentsViewModel by activityViewModels()
 
 
 //    private lateinit var componentFragmentSwipeLayout:SwipeLayout
@@ -117,11 +121,11 @@ class ComponentsFragment : Fragment() {
                         Color.parseColor("#FF9502"),
                         object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
-                                Toast.makeText(
-                                    context,
-                                    "edit button has been clicked",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                viewHolder.layoutPosition
+                                Log.d(TAG,pos.toString())
+                                componentsAdapter.setComponent(pos)
+
+                                view.findNavController().navigate(R.id.action_componentsFragment_to_editFragment)
                             }
                         }
                     )
@@ -157,6 +161,8 @@ class ComponentsFragment : Fragment() {
             allComponents.addAll(it)
             binding.componentsRecyclerView.animate().alpha(1f)
 
+
+
         })
 
         componentsViewModel.componentsErrorLiveData.observe(viewLifecycleOwner, { error ->
@@ -170,6 +176,8 @@ class ComponentsFragment : Fragment() {
 
             }
         })
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -252,14 +260,6 @@ class ComponentsFragment : Fragment() {
 
     }
 
-//    override fun onContextItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.edit_item -> Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
-//            R.id.delete_item -> Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT)
-//                .show()
-//        }
-//        return super.onContextItemSelected(item)
-//
-//    }
+
 
 }

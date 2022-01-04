@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_componentsFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_componentsFragment_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/addingComponentsFragment"
@@ -78,7 +81,7 @@
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" >
         <action
-            android:id="@+id/action_editFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_editFragment_to_componentsFragment"
+            app:destination="@id/componentsFragment" />
     </fragment>
 </navigation>

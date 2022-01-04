@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
@@ -33,10 +34,10 @@ class AddingComponentsFragment : Fragment() {
     private val addingComponentsViewModel = AddingComponentsViewModel()
 
     private lateinit var progressDialog: ProgressDialog
-    val addList = mutableListOf<ComponentApi>()
-    var mStorage: StorageReference? = null
+    private val addList = mutableListOf<ComponentApi>()
+    private var mStorage: StorageReference? = null
 
-    private lateinit var viewModel: ComponentsViewModel
+    private val viewModel: ComponentsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,7 @@ class AddingComponentsFragment : Fragment() {
         }
 
 
-        binding.addComponent.setOnClickListener() {
+        binding.addComponent.setOnClickListener {
             val title = binding.titleEditText.text.toString()
             val descreption = binding.descreptionEditText.text.toString()
             val functionality = binding.functionlityEditText.text.toString()
@@ -86,7 +87,9 @@ class AddingComponentsFragment : Fragment() {
                 source3
             )
 
-            findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+              //  viewModel.callComponents()
+               // findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+
         }
 
         //=============================================================================================================
@@ -94,7 +97,7 @@ class AddingComponentsFragment : Fragment() {
         // giving a limit for of to the title
         val titleLimit = 35
         binding.titleEditText.doOnTextChanged { text, start, before, count ->
-            var titleLength = text?.length.toString()
+            val titleLength = text?.length.toString()
 
             if (titleLimit - titleLength.toInt() == 0) {
 

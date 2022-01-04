@@ -27,9 +27,9 @@ class AddingComponentsViewModel : ViewModel() {
         descreption: String,
         functionality: String,
         equation: String,
-        rec1: String,
-        rec2: String,
-        rec3: String
+        res1: String,
+        res2: String,
+        res3: String
     ) {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -41,9 +41,9 @@ class AddingComponentsViewModel : ViewModel() {
                     functionality,
                     equation,
                     "",
-                    rec1,
-                    rec2,
-                    rec3,
+                    res1,
+                    res2,
+                    res3,
                     false
                 )
                 val response = apiRepo.addComponent(component)
@@ -64,7 +64,7 @@ class AddingComponentsViewModel : ViewModel() {
                 Log.d(TAG, e.message.toString())
 
                 addedComponentLiveError.postValue(e.message.toString())
-                /// componentsLiveData.postValue(databaseRepo.getComponents())
+
             }
         }
     }
