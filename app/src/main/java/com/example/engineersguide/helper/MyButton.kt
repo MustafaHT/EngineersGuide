@@ -18,11 +18,7 @@ class MyButton(
 ) {
     private var pos: Int = 0
     private var clickRegion: RectF? = null
-    private val resources: Resources
-
-    init {
-        resources = context.resources
-    }
+    private val resources: Resources = context.resources
 
     fun onClick(x: Float, y: Float): Boolean {
         if (clickRegion != null && clickRegion!!.contains(x, y)) {
@@ -46,16 +42,16 @@ class MyButton(
         val cWigth = rectF.width()
         p.textAlign = Paint.Align.LEFT
         p.getTextBounds(text, 0, text.length, r)
-        var x = 0f
-        var y = 0f
+        val x: Float
+        val y: Float
         if (imageResId == 0) {
             x = cWigth / 2f - r.width() / 2f - r.left.toFloat()
-            y = cHeight / 2f - r.height() / 2f - r.bottom.toFloat()
+            y = cHeight / 1.5f - r.height() / 1.5f - r.bottom.toFloat()
             c.drawText(text, rectF.left + x, rectF.top + y, p)
         } else {
             val d = ContextCompat.getDrawable(context,imageResId)
             val bitmap = drwableToBitmap(d)
-            c.drawBitmap(bitmap, (rectF.left + rectF.right) / 2, (rectF.top + rectF.bottom) / 2, p)
+            c.drawBitmap(bitmap, (rectF.left + rectF.right) / 2.05f, (rectF.top + rectF.bottom) / 2, p)
         }
 
         clickRegion = rectF

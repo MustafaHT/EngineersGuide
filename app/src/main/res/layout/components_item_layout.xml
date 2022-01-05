@@ -2,65 +2,69 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:id="@+id/swipeLayout"
     android:orientation="vertical"
+    android:paddingTop="3dp"
     app:clickToClose="true">
-    
+
     <LinearLayout
+        android:id="@+id/linear_sol"
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:id="@+id/linear_sol"
         android:orientation="horizontal"
+        android:paddingBottom="5dp"
         android:weightSum="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/pdf"
-            android:text="PDF"
-            android:clickable="true"
-            android:gravity="center"
-            android:layout_weight="0.25"
-            android:textColor="#fff"
-            android:background="@color/red"/>
-        
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:id="@+id/pdf"-->
+<!--                    android:text="PDF"-->
+<!--                    android:clickable="true"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_weight="0.25"-->
+<!--                    android:textColor="#fff"-->
+<!--                    android:background="@color/red"/>-->
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linear_sag"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/linear_sag"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:weightSum="1">
 
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_edit_24"
-            android:background="#D17D00"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:id="@+id/edit_imageView"/>
+        <!--        <ImageButton-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:src="@drawable/ic_baseline_edit_24"-->
+        <!--            android:background="#D17D00"-->
+        <!--            android:paddingLeft="25dp"-->
+        <!--            android:paddingRight="25dp"-->
+        <!--            android:id="@+id/edit_imageView"/>-->
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_favorite_border_24"
-            android:background="#FFD600"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:id="@+id/favorite_imageView"/>
+        <!--        <ImageView-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:src="@drawable/ic_baseline_favorite_border_24"-->
+        <!--            android:background="#FFD600"-->
+        <!--            android:paddingLeft="25dp"-->
+        <!--            android:paddingRight="25dp"-->
+        <!--            android:id="@+id/favorite_imageView"/>-->
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_delete_24"
-            android:background="@color/red"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:id="@+id/delete_imageView"/>
+        <!--        <ImageView-->
+        <!--            android:layout_width="70dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:src="@drawable/ic_baseline_delete_24"-->
+        <!--            android:background="@color/red"-->
+        <!--            android:paddingLeft="25dp"-->
+        <!--            android:paddingRight="25dp"-->
+        <!--            android:id="@+id/delete_imageView"/>-->
 
 
     </LinearLayout>
@@ -69,19 +73,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <ImageView
             android:id="@+id/desscreption_imageView_Component"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"/>
+            android:layout_weight="0" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/title_textView_Component"

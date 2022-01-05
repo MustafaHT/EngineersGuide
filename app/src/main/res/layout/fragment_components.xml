@@ -2,53 +2,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlack"
-    tools:ignore="ExtraText">
+    android:background="@color/lightBlack">
 
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/color_nav_bottom_bar"
-        app:backgroundTint="#00FFFFFF"
-        app:contentInsetStart="0dp"
-        app:contentInsetStartWithNavigation="0dp"
-        app:contentInsetLeft="0dp"
-        app:fabCradleMargin="20dp"
-        app:fabCradleRoundedCornerRadius="45dp"
-        app:fabCradleVerticalOffset="12dp"
-        app:hideOnScroll="true"
-        tools:ignore="RtlHardcoded">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:background="@android:color/transparent"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp"
-            app:itemIconTint="@color/nav_bottom"
-            app:itemRippleColor="@color/gray"
-            app:itemTextColor="@color/nav_bottom"
-            app:menu="@menu/bottom_nav_menu" />
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/adding_components_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_24"
-        app:maxImageSize="50dp"
-        android:backgroundTint="@color/yellow2"
-        app:layout_anchor="@id/bottomAppBar"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +17,7 @@
         app:layout_anchor="@+id/progressBar"
         app:layout_anchorGravity="center" />
 
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.ProgressBar.Large"
@@ -67,12 +26,40 @@
         android:layout_gravity="center" />
 
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:fabCradleMargin="8dp"
+        android:backgroundTint="@color/color_nav_bottom_bar"
+        app:fabCradleRoundedCornerRadius="30dp"
+        android:layout_gravity="bottom"
+        app:itemIconTint="@color/nav_bottom">
 
-    <!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        style="@android:style/Widget.ProgressBar.Large"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center" />-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/transparent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFD600"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_anchor="@id/bottomBar"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

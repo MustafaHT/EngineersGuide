@@ -87,30 +87,13 @@ class ComponentsRecyclerViewAdapter(val viewModel: ComponentsViewModel) :
 
         val titleTextview: TextView = itemView.findViewById(R.id.title_textView_Component)
         val descreptionTextView: TextView = itemView.findViewById(R.id.descreption_textView_Component)
-//        val cardView:CardView = itemView.findViewById(R.id.CardView)
-
-//        var onDeleteClcik:((RecyclerView.ViewHolder) -> Unit)? = null
-//        init {
-//            view.get()?.let{
-//                it.setOnClickListener {
-//                    if(view.get()?.scrollX != 0){
-//                        view.get()?.scrollTo(0,0)
-//                    }
-//                }
-//
-//                deleteImageView.setOnClickListener {
-//                    onDeleteClcik?.let {
-//                        // here
-//                        onDeleteClcik?.let { it1 -> it1(this) }
-//                    }
-//                }
-//
-//            }
-//        }
     }
 
     fun submitList(list: List<ComponentApi>) {
         differ.submitList(list)
+    }
+    fun getList():List<ComponentApi> {
+        return differ.currentList
     }
 
 

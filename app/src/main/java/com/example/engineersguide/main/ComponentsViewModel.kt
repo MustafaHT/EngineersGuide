@@ -20,8 +20,8 @@ class ComponentsViewModel : ViewModel() {
 
     val selectedComponent = MutableLiveData<ComponentApi>()
 
-    val allComponents = mutableListOf<ComponentApi>()
-    private lateinit var componentsId:ComponentApi
+    val deletedItemResponseLiveData = MutableLiveData<String>()
+    val deletedItemErrorLiveData = MutableLiveData<String>()
 
     val componentsLiveData = MutableLiveData<List<ComponentApi>>()
     val componentsErrorLiveData = MutableLiveData<String>()
@@ -55,13 +55,13 @@ class ComponentsViewModel : ViewModel() {
                 val response = apiRepo.deleteComponent(componentsId)
                 if (response.isSuccessful){
                     response.body()?.run {
-                        componentsLiveData.postValue(listOf(this))
+                        deletedItemResponseLiveData.postValue("Deleted Successfully!")
                     }
                 }else{
-                    componentsErrorLiveData.postValue(response.message())
+                    deletedItemErrorLiveData.postValue(response.message())
                 }
             }catch (e:Exception){
-                componentsErrorLiveData.postValue(e.message.toString())
+                deletedItemErrorLiveData.postValue(e.message.toString())
             }
 
         }

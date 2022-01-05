@@ -19,15 +19,15 @@ import kotlin.collections.HashMap
 abstract class MySwiperHelper(
     context: Context?,
     private val recyclerView: RecyclerView,
-    internal var buttonWidth: Int
+    private var buttonWidth: Int
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     private var buttonList: MutableList<MyButton>? = null
-    lateinit var gestureDetector: GestureDetector
-    var swipePosition = -1
-    var swipeThrshold = 0.5f
-    var buttonBuffer: MutableMap<Int, MutableList<MyButton>>
-    lateinit var removeQueu: LinkedList<Int>
+    private lateinit var gestureDetector: GestureDetector
+    private var swipePosition = -1
+    private var swipeThrshold = 0.5f
+    private var buttonBuffer: MutableMap<Int, MutableList<MyButton>>
+    private lateinit var removeQueu: LinkedList<Int>
 
     abstract fun instantiateMyButton(
         viewHolder: RecyclerView.ViewHolder,
@@ -93,7 +93,7 @@ abstract class MySwiperHelper(
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-    class IntLinkedList(): LinkedList<Int>() {
+    class IntLinkedList : LinkedList<Int>() {
         override fun contains(element: Int): Boolean {
             return false
         }
@@ -165,7 +165,7 @@ abstract class MySwiperHelper(
     ) {
         val pos = viewHolder.adapterPosition
         var translationX = dX
-        var itemView = viewHolder.itemView
+        val itemView = viewHolder.itemView
         if (pos < 0){
             swipePosition = pos
             return

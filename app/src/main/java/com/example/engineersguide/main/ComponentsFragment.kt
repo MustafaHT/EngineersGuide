@@ -77,16 +77,28 @@ class ComponentsFragment : Fragment() {
         return (binding.root)
 
 
+
     }
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        binding.bottomNavigationView.background = null
         componentsViewModel.callComponents()
 
         componentsAdapter = ComponentsRecyclerViewAdapter(componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
+
+
+        binding.componentsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(recyclerView.canScrollVertically(1)){
+                    binding.bottomBar.hideOnScroll = true
+                }
+            }
+        })
 
 
         val swipe = object : MySwiperHelper(context, binding.componentsRecyclerView, 300) {
@@ -98,15 +110,18 @@ class ComponentsFragment : Fragment() {
                 buffer.add(
                     MyButton(requireActivity(),
                         "Delete",
-                        30,
-                        R.drawable.ic_baseline_delete_24,
+                        0,
+                        (R.drawable.ic_baseline_delete_24),
                         Color.parseColor("#FF3c30"),
                         object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
                                 Log.d(TAG,"not working")
                                 viewHolder.layoutPosition
-                                componentsViewModel.deleteComponent(allComponents[viewHolder.layoutPosition].id.toInt())
-                                componentsViewModel.callComponents()
+                                Log.d(TAG,"$pos")
+                                Log.d(TAG,"${componentsAdapter.getList()[pos]}")
+
+                                componentsViewModel.deleteComponent(componentsAdapter.getList()[pos].id.toInt())
+
                             }
                         }
 
@@ -116,8 +131,8 @@ class ComponentsFragment : Fragment() {
                 buffer.add(
                     MyButton(requireActivity(),
                         "Edit",
-                        30,
-                        R.drawable.ic_baseline_edit_24,
+                        0,
+                        (R.drawable.ic_baseline_edit_24),
                         Color.parseColor("#FF9502"),
                         object : MyButtonClickListener {
                             override fun onClick(pos: Int) {
@@ -141,7 +156,7 @@ class ComponentsFragment : Fragment() {
 
 
 
-        binding.addingComponentsButton.setOnClickListener() {
+        binding.fab.setOnClickListener() {
             findNavController().navigate(R.id.action_componentsFragment_to_addingComponentsFragment)
 
         }
@@ -154,10 +169,12 @@ class ComponentsFragment : Fragment() {
 
     fun observers() {
 
+
         componentsViewModel.componentsLiveData.observe(viewLifecycleOwner, {
 
-            binding.progressBar.animate().alpha(0f).setDuration(1000)
+            binding.progressBar.animate().alpha(0f).duration = 1000
             componentsAdapter.submitList(it)
+            Log.d(TAG,"inside the componentsLiveDataObserve: $it")
             allComponents.addAll(it)
             binding.componentsRecyclerView.animate().alpha(1f)
 
@@ -173,6 +190,14 @@ class ComponentsFragment : Fragment() {
 //                    findNavController().navigate(R.id.)
 
                     componentsViewModel.componentsErrorLiveData.postValue(null)
+
+            }
+        })
+
+        componentsViewModel.deletedItemResponseLiveData.observe(viewLifecycleOwner, {
+            it?.let {
+                binding.progressBar.animate().alpha(1f).duration = 1000
+                componentsViewModel.callComponents()
 
             }
         })
@@ -242,13 +267,6 @@ class ComponentsFragment : Fragment() {
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
-
-//        val token = sharedPref.getString(TOKEN_KEY, "")
-//
-//        if (token!!.isEmpty()) {
-//            logoutItem.isVisible = false
-//            profileItem.isVisible = false
-//        }
 
     override fun onCreateContextMenu(
         menu: ContextMenu,

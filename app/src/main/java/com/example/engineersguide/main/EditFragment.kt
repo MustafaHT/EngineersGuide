@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -35,7 +37,7 @@ class EditFragment : Fragment() {
 
 
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
-            it?.let {component ->
+            it?.let { component ->
 
                 binding.titleEditTextEditFragment.setText(component.componentTitle)
                 binding.descreptionEditTextEditFragment.setText(component.description)
@@ -43,7 +45,7 @@ class EditFragment : Fragment() {
                 binding.equationsEditTextEditFragment.setText(component.equations)
                 binding.source1EditTextEditFragment.setText(component.source1)
                 binding.source2EditTextEditFragment.setText(component.source2)
-                binding .source3EditTextEditFragment.setText(component.source3)
+                binding.source3EditTextEditFragment.setText(component.source3)
                 selectedComponent = component
 
             }
@@ -52,12 +54,27 @@ class EditFragment : Fragment() {
         binding.saveComponentEditFragment.setOnClickListener {
             selectedComponent.componentTitle = binding.titleEditTextEditFragment.text.toString()
             selectedComponent.description = binding.descreptionEditTextEditFragment.text.toString()
-            selectedComponent.functionality = binding.functionlityEditTextEditFragment.text.toString()
+            selectedComponent.functionality =
+                binding.functionlityEditTextEditFragment.text.toString()
             selectedComponent.source1 = binding.source1EditTextEditFragment.text.toString()
             selectedComponent.source2 = binding.source2EditTextEditFragment.text.toString()
             selectedComponent.source3 = binding.source3EditTextEditFragment.text.toString()
-            viewModel.updateComponent(selectedComponent.id.toInt(),selectedComponent)
+            viewModel.updateComponent(selectedComponent.id.toInt(), selectedComponent)
             findNavController().navigate(R.id.action_editFragment_to_componentsFragment)
+
+        }
+
+        val titleLimit = 35
+        binding.titleEditTextEditFragment.doOnTextChanged { text, start, before, count ->
+            val titleLength = text?.length.toString()
+
+            if (titleLimit - titleLength.toInt() == 0) {
+
+                Toast.makeText(requireActivity(), "Title name reached its limit", Toast.LENGTH_LONG)
+                    .show()
+            }
+            binding.titleLengthTextViewEditFragment.text =
+                (titleLimit - titleLength.toInt()).toString()
 
         }
     }
