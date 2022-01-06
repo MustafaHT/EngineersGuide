@@ -34,6 +34,7 @@
         android:backgroundTint="@color/color_nav_bottom_bar"
         app:fabCradleRoundedCornerRadius="30dp"
         android:layout_gravity="bottom"
+        app:hideOnScroll="false"
         app:itemIconTint="@color/nav_bottom">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

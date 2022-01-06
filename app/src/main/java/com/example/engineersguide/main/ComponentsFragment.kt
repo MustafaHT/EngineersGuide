@@ -96,6 +96,27 @@ class ComponentsFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
                 if(recyclerView.canScrollVertically(1)){
                     binding.bottomBar.hideOnScroll = true
+
+
+                }else if(!recyclerView.canScrollVertically(-1)){
+                    Log.d(TAG,"I'm In")
+                    binding.bottomBar.hideOnScroll = false
+                    binding.fab.show()
+                    binding.bottomBar.performShow()
+
+
+                }
+            }
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy < 0){
+                    binding.fab.show()
+                }else if(dy > 0){
+                    if (binding.bottomBar.hideOnScroll){
+                        binding.fab.hide()
+                    }else{
+                        binding.fab.show()
+                    }
                 }
             }
         })
