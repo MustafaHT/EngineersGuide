@@ -9,6 +9,7 @@ import com.example.engineersguide.repositories.ApiServiceRepository
 import com.google.firebase.components.Component
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 
 private const val TAG = "AddingComponentsViewMod"
 
@@ -68,6 +69,24 @@ class AddingComponentsViewModel : ViewModel() {
             }
         }
     }
+
+//    fun uploadUserImage(file: File) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                val response = apiRepo.uploadUserImage(file)
+//
+//                if (response.isSuccessful) {
+//                    uploadImageLiveData.postValue("successful")
+//                } else {
+//                    Log.d(TAG,response.message())
+//                    profileErrorsLiveData.postValue(response.message())
+//                }
+//            } catch (e: Exception) {
+//                Log.d(TAG,e.message.toString())
+//                profileErrorsLiveData.postValue(e.message.toString())
+//            }
+//        }
+//    }
 
 
 }

@@ -21,6 +21,10 @@ import com.example.engineersguide.model.components.ComponentApi
 import com.example.engineersguide.repositories.ApiServiceRepository
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.internal.entity.CaptureStrategy
+import java.io.File
 import java.util.*
 
 
@@ -28,6 +32,8 @@ private lateinit var apiServiceRepository: ApiServiceRepository
 private const val TAG = "AddingComponentsFragment"
 
 class AddingComponentsFragment : Fragment() {
+
+    private val IMAGE_PICKER = 0
 
     private lateinit var binding: FragmentAddingComponentsBinding
 
@@ -60,10 +66,12 @@ class AddingComponentsFragment : Fragment() {
         mStorage = FirebaseStorage.getInstance().reference
 
         binding.componentImageButton.setOnClickListener() {
+            showImagePicker()
+
 //            val intentImage = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-////            intentImage.type = "image/*"
+//            intentImage.type = "image/*"
 //                activity?.startActivityForResult(intentImage, 2)
-            Toast.makeText(context, "This button is disabled", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "This button is disabled", Toast.LENGTH_LONG).show()
 
         }
 
@@ -123,22 +131,37 @@ class AddingComponentsFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d(TAG, "BEFORE CONDITION")
-        if (requestCode == 2 && resultCode == RESULT_OK) {
-            val uriImage = data?.data
-            Log.d(TAG, "IMAGE")
 
-            val filePath = mStorage?.child(Calendar.getInstance().time.toString())
-            Log.d(TAG, "file path: $filePath")
-            if (uriImage != null) {
-                Log.d(TAG, " URI Image: $uriImage")
-                filePath?.putFile(uriImage)?.addOnSuccessListener {
-                    Log.d(TAG, "Successfully added")
+//        val imagePath = Matisse.obtainPathResult(data)[0]
+//
+//        val imageFile = File(imagePath)
+//
+//        addingComponentsViewModel.
 
-                    Toast.makeText(context, "Upload Image", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+//        Log.d(TAG, "BEFORE CONDITION")
+//        if (requestCode == 2 && resultCode == RESULT_OK) {
+//            val uriImage = data?.data
+//            Log.d(TAG, "IMAGE")
+//
+//            val filePath = mStorage?.child(Calendar.getInstance().time.toString())
+//            Log.d(TAG, "file path: $filePath")
+//            if (uriImage != null) {
+//                Log.d(TAG, " URI Image: $uriImage")
+//                filePath?.putFile(uriImage)?.addOnSuccessListener {
+//                    Log.d(TAG, "Successfully added")
+//
+//                    Toast.makeText(context, "Upload Image", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+    }
+
+    fun showImagePicker(){
+        Matisse.from(this)
+            .choose(MimeType.ofImage(),false)
+            .capture(true)
+            .captureStrategy(CaptureStrategy(true,"com.example.engineersguide.main"))
+            .forResult(IMAGE_PICKER)
     }
 
     @SuppressLint("LongLogTag")

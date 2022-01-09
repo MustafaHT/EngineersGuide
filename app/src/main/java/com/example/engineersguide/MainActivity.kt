@@ -2,6 +2,7 @@ package com.example.engineersguide
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -45,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
 
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -67,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
+
 
 
 }

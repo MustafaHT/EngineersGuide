@@ -34,9 +34,17 @@
             android:noHistory="true" />
 
 
-<!--        <meta-data-->
-<!--            android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--            android:resource="@array/preloaded_fonts" />-->
+        <provider
+            android:authorities="com.example.engineersguide"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file__paths"/>
+
+        </provider>
 
     </application>
 

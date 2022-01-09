@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_componentsFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_componentsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addingComponentsFragment"
@@ -84,4 +87,9 @@
             android:id="@+id/action_editFragment_to_componentsFragment"
             app:destination="@id/componentsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.engineersguide.main.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

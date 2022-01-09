@@ -57,10 +57,14 @@
         app:layout_anchor="@id/bottomBar"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
-
-
-
+    <ImageView
+        android:id="@+id/noComponentImageView_ComponentFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_anchor="@+id/componentsRecyclerView"
+        app:layout_anchorGravity="center"
+        app:srcCompat="@drawable/components" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightBlack"
-    android:padding="20dp"
     app:layoutDescription="@xml/fragment_login_scene"
     tools:context=".identity.LoginFragment">
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="-25dp"
+        android:src="@drawable/vector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email_Login_EditText"
         android:layout_width="328dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edittextshape"
         android:ems="10"
         android:hint=" Email"
-        android:textColor="@color/black"
         android:inputType="textEmailAddress"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -31,10 +42,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edittextshape"
-        android:textColor="@color/black"
         android:ems="10"
         android:hint=" Password"
         android:inputType="textPassword"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,62 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/login_MotionLayout"
-        android:layout_width="87dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/gears" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="67dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginBottom="16dp"
-        android:rotation="45"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/gears"
-        tools:ignore="UnknownIdInLayout" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="54dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="32dp"
-        android:rotationY="-170"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_MotionLayout"
-        app:srcCompat="@drawable/man" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/black_ops_one"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
@@ -140,4 +95,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="67dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:rotation="45"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/imageView15"
+        app:layout_constraintHorizontal_bias="0.691"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.705"
+        app:srcCompat="@drawable/gears" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="87dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/gears" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="54dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="140dp"
+        android:rotationY="-170"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/man" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/black_ops_one"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

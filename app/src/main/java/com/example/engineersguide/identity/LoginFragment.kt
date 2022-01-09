@@ -18,6 +18,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.internal.entity.CaptureStrategy
 
 
 class LoginFragment : Fragment() {
@@ -43,6 +46,10 @@ class LoginFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.button.setOnClickListener {
+            showImagePicker()
+        }
 
 
 
@@ -89,5 +96,14 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    fun showImagePicker(){
+        val IMAGE_PICKER = 0
+        Matisse.from(this)
+            .choose(MimeType.ofImage(),false)
+            .capture(true)
+            .captureStrategy(CaptureStrategy(true,"com.example.engineersguide"))
+            .forResult(IMAGE_PICKER)
     }
 }

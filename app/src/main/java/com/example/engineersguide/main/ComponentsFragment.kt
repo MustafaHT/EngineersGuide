@@ -90,6 +90,13 @@ class ComponentsFragment : Fragment() {
         componentsAdapter = ComponentsRecyclerViewAdapter(componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
 
+//        if(componentsAdapter.itemCount == 0){
+//            binding.noComponentImageViewComponentFragment.visibility = View.VISIBLE
+//        }else{
+//            binding.noComponentImageViewComponentFragment.visibility = View.INVISIBLE
+//        }
+
+
 
         binding.componentsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -200,6 +207,12 @@ class ComponentsFragment : Fragment() {
             binding.componentsRecyclerView.animate().alpha(1f)
 
 
+            // here if the there are no components the gears Image will be shown inside components fragment
+            if(it.isEmpty()){
+                binding.noComponentImageViewComponentFragment.visibility = View.VISIBLE
+            }else{
+                binding.noComponentImageViewComponentFragment.visibility = View.INVISIBLE
+            }
 
         })
 
@@ -243,12 +256,16 @@ class ComponentsFragment : Fragment() {
                 }
 
             }
-
-
+            R.id.setting_item -> {
+                findNavController().navigate(R.id.action_componentsFragment_to_settingsFragment)
+            }
         }
 
 //        R.id.profile_item -> {
 //            findNavController().navigate(R.id.)
+
+
+
 
         return super.onOptionsItemSelected(item)
     }
