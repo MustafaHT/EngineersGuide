@@ -3,7 +3,7 @@ package com.example.engineersguide.repositories
 import android.content.Context
 import androidx.room.Room
 import com.example.engineersguide.database.ComponentsDatabase
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 
 
 private const val DATABASE_NAME = "components-database"
@@ -19,7 +19,7 @@ class RoomServiceRepository(context: Context) {
 
     private val componentsDao = database.componentsDao()
 
-    suspend fun insertComponents(components: List<ComponentApi>) =
+    suspend fun insertComponents(components: List<ComponentModel>) =
         componentsDao.insertComponents(components)
 
     suspend fun getComponents() = componentsDao.getComponents()

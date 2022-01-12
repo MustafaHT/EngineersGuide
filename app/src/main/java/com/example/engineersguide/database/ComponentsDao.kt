@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 
 @Dao
 interface ComponentsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertComponents(ComponentApi: List<ComponentApi>)
+    suspend fun insertComponents(ComponentApi: List<ComponentModel>)
 
 
-    @Query("SELECT * FROM componentapi")
-    suspend fun getComponents(): List<ComponentApi>
+    @Query("SELECT * FROM componentmodel")
+    suspend fun getComponents(): List<ComponentModel>
 
 }

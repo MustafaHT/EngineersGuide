@@ -1,13 +1,6 @@
 package com.example.engineersguide.identity
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.engineersguide.model.components.ComponentApi
-import com.example.engineersguide.repositories.ApiServiceRepository
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 //import java.lang.Exception
 //import kotlin.Exception

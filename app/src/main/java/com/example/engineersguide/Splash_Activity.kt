@@ -14,10 +14,19 @@ import java.util.zip.Inflater
 
 class Splash_Activity : AppCompatActivity() {
 
+
+private val SHARED_PREF_FILE ="Auth"
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+//            val sharedPref = this.getSharedPreferences(SHARED_PREF_FILE,MODE_PRIVATE)
+//    val sharedPrefEditor = sharedPref.edit()
+//    sharedPref.getBoolean("auth",true)
+//    sharedPrefEditor.commit()
+
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -60,14 +69,14 @@ class Splash_Activity : AppCompatActivity() {
         })
 
 
-        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
-            || ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
-            || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.CAMERA,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
-        }
+//        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
+//            || ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED
+//            || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+//            ActivityCompat.requestPermissions(this,
+//                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    android.Manifest.permission.CAMERA,
+//                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
+//        }
 
 
     }

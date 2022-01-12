@@ -47,6 +47,17 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPref = requireActivity().getSharedPreferences(
+            SHARED_PREF_FILE,
+            Context.MODE_PRIVATE
+        )
+
+        val status = sharedPref.getBoolean("auth",false)
+
+        if (status){
+            findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
+        }
+
         binding.button.setOnClickListener {
             showImagePicker()
         }
@@ -65,10 +76,6 @@ class LoginFragment : Fragment() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            sharedPref = requireActivity().getSharedPreferences(
-                                SHARED_PREF_FILE,
-                                Context.MODE_PRIVATE
-                            )
                             sharedPrefEditor = sharedPref.edit()
                             sharedPrefEditor.putBoolean("auth", true)
                             sharedPrefEditor.commit()

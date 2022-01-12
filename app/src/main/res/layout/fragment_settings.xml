@@ -10,33 +10,38 @@
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleButtonGroup_settings"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnCenter"
+            style="@style/ToggleButtonWithIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
+
+        <Button
+            android:id="@+id/btnLeft"
+            style="@style/ToggleButtonWithIconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
 
-        <ToggleButton
-            android:id="@+id/longView_ToggleButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/longg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <ToggleButton
-            android:id="@+id/square_ToggleButton"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/squares"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/longView_ToggleButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

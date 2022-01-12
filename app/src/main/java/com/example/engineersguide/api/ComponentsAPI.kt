@@ -1,32 +1,35 @@
 package com.example.engineersguide.api
 
-import androidx.room.Update
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ComponentsAPI {
 
-    @GET("/api/v1/component")
+    @GET("/api/v1/components")
     suspend fun getComponents(
 
-    ): Response<List<ComponentApi>>
+    ): Response<List<ComponentModel>>
 
-    @POST("/api/v1/component")
+    @POST("/api/v1/components")
     suspend fun addComponents(
-        @Body component: ComponentApi
-    ): Response<ComponentApi>
+        @Body component: ComponentModel
+    ): Response<ComponentModel>
 
-    @DELETE("/api/v1/component/{id}")
+    @DELETE("/api/v1/components/{id}")
     suspend fun deleteComponents(
         @Path("id") componentsId: Int
-    ): Response<ComponentApi>
+    ): Response<ComponentModel>
 
-    @PUT("/api/v1/component/{id}")
+    @PUT("/api/v1/components/{id}")
     suspend fun updateComponents(
        @Path("id") componentId: Int,
-       @Body component:ComponentApi
-    ): Response<ComponentApi>
+       @Body component:ComponentModel
+    ): Response<ComponentModel>
+
+//    suspend fun uploadImage(
+//        @Body componentImage: UploadImage
+//    ):Response<UploadImage>
 
 
 

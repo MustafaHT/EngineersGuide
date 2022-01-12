@@ -11,8 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +20,7 @@ import com.example.engineersguide.databinding.FragmentComponentsBinding
 import com.example.engineersguide.helper.MyButton
 import com.example.engineersguide.helper.MySwiperHelper
 import com.example.engineersguide.listener.MyButtonClickListener
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
 import com.google.firebase.auth.FirebaseAuth
 
@@ -33,7 +31,7 @@ class ComponentsFragment : Fragment() {
 
     private lateinit var binding: FragmentComponentsBinding
 
-    private var allComponents = mutableListOf<ComponentApi>()
+    private var allComponents = mutableListOf<ComponentModel>()
 
     private lateinit var componentsAdapter: ComponentsRecyclerViewAdapter
     private val componentsViewModel: ComponentsViewModel by activityViewModels()
@@ -44,7 +42,7 @@ class ComponentsFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var sharedPrefEditor: SharedPreferences.Editor
 
-    private lateinit var selectedComponent: ComponentApi
+    private lateinit var selectedComponent: ComponentModel
     private val viewModel: ComponentsViewModel by activityViewModels()
 
 
@@ -87,7 +85,7 @@ class ComponentsFragment : Fragment() {
         binding.bottomNavigationView.background = null
         componentsViewModel.callComponents()
 
-        componentsAdapter = ComponentsRecyclerViewAdapter(componentsViewModel)
+        componentsAdapter = ComponentsRecyclerViewAdapter(requireContext(),componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
 
 //        if(componentsAdapter.itemCount == 0){
@@ -203,6 +201,10 @@ class ComponentsFragment : Fragment() {
             binding.progressBar.animate().alpha(0f).duration = 1000
             componentsAdapter.submitList(it)
             Log.d(TAG,"inside the componentsLiveDataObserve: $it")
+            // here because of the addAll when ever i search about the component name the card will get repeat it self again and again
+            // so to solve this problem i need to clear the components and get them after the clear method ...
+            // here the components will be showed one time instead of making multiple times !!
+            allComponents.clear()
             allComponents.addAll(it)
             binding.componentsRecyclerView.animate().alpha(1f)
 
@@ -244,10 +246,9 @@ class ComponentsFragment : Fragment() {
         when (item.itemId) {
             R.id.logout_item -> {
                 FirebaseAuth.getInstance().signOut()
-                sharedPref =
-                    requireActivity().getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
+                sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
                 sharedPrefEditor = sharedPref.edit()
-                sharedPrefEditor.putBoolean("a", false)
+                sharedPrefEditor.putBoolean("auth", false)
                 sharedPrefEditor.commit()
                 findNavController().navigate(R.id.action_componentsFragment_to_loginFragment)
 
@@ -281,41 +282,78 @@ class ComponentsFragment : Fragment() {
 
 
 
+//
+//     My Old code that made the problem
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                if (newText != null) {
+//                    if (newText.isNotBlank()) {
+////                        allComponents.clear()
+//                        componentsAdapter.submitList(allComponents.filter {
+//                            it.componentTitle.lowercase().contains(newText!!.lowercase())
+//                        })
+//                    }
+//                }
+//                return true
+//            }
+//
+//        })
+
+
+
+        // ======================================================(NEW CODE FOR SEARCH BAR)==========================================
 
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                componentsAdapter.submitList(
+                    allComponents.filter {
+                        it.componentName.lowercase().contains(query!!.lowercase())
+                                || it.description.lowercase().contains(query!!.lowercase())
+
+                    }
+                )
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    if (newText.isNotBlank()) {
-                        componentsAdapter.submitList(allComponents.filter {
-                            it.componentTitle.lowercase().contains(newText!!.lowercase())
-                        })
+                componentsAdapter.submitList(
+                    allComponents.filter {
+                        it.componentName.lowercase().contains(newText!!.lowercase())
+                                || it.description.lowercase().contains(newText!!.lowercase())
+
                     }
-                }
+                )
+                return true
+            }
+
+        })
+
+        search.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+
+                return true
+            }
+            // here i used to return the previous list if the theres nothing inside the search bar ..
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                componentsAdapter.submitList(allComponents)
                 return true
             }
 
         })
 
 
-        return super.onCreateOptionsMenu(menu, inflater)
+
+
+
+
+
+
+
+//        return super.onCreateOptionsMenu(menu, inflater)
     }
-
-
-    override fun onCreateContextMenu(
-        menu: ContextMenu,
-        v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        requireActivity().menuInflater.inflate(R.menu.additional_menu, menu)
-
-    }
-
-
-
 }

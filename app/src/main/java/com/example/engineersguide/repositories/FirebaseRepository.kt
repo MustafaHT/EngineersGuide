@@ -1,21 +1,19 @@
 package com.example.engineersguide.repositories
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.auth.FirebaseUser
+
+import com.google.firebase.storage.FirebaseStorage
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.logging.SimpleFormatter
 
 
-//private var mutableLiveData = MutableLiveData<FirebaseUser>()
-//private var firebaseAuth: FirebaseUser(email,password)
-
-class FirebaseRepository(val context: Context) {
 
 
-//    suspend fun register(email:String,password:String) =
-//        firebaseAuth.
-//
-//
-//    suspend fun login(email:String,password: String) =
+class FirebaseRepository() {
+
+
+    private val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+    val name = formatter.format(Date())
+fun uploadComponentImage() = FirebaseStorage.getInstance().getReference("componentsPictures/$name")
 
 }

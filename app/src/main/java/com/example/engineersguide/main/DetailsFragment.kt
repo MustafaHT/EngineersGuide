@@ -3,6 +3,7 @@ package com.example.engineersguide.main
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -11,13 +12,13 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentDetailsBinding
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import java.io.FileOutputStream
@@ -27,11 +28,17 @@ import java.util.*
 class DetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding
-    private lateinit var selectedComponent: ComponentApi
+    private lateinit var selectedComponent: ComponentModel
     private val viewModel: ComponentsViewModel by activityViewModels()
 
 
     private lateinit var deleteItem: MenuItem
+
+    private var image: Uri? = null
+
+    private val IMAGE_PICKER = 0
+
+    private val firestorageViewModel = FirestorageViewModel()
 
 
     private val STORAGE_CODE = 1001
@@ -56,7 +63,8 @@ class DetailsFragment : Fragment() {
 
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
             it?.let { component ->
-                binding.titleTextViewDetails.text = component.componentTitle
+                binding.titleTextViewDetails.text = component.componentName
+                Glide.with(requireContext()).load(component.componentImageUrl).into(binding.imageViewDetails)
                 binding.descreptionTextViewDetails.text = component.description
                 binding.functionalityTextViewDetails.text = component.functionality
                 binding.equationsTextViewDetails.text = component.equations
@@ -208,7 +216,7 @@ class DetailsFragment : Fragment() {
             mDoc.open()
 
             val data = binding.titleTextViewDetails.text.toString().trim()
-//            val picData =
+            val picData = Glide.with(requireContext()).load(selectedComponent.componentImageUrl).into(binding.imageViewDetails)
             val data2 = binding.textView13.text.toString().trim()
             val data3 = selectedComponent.description.trim()
             val data4 = binding.textView17.text.toString().trim()
@@ -220,7 +228,7 @@ class DetailsFragment : Fragment() {
             val data0 = binding.source3TextViewDetails.text.toString().trim()
             mDoc.addAuthor("Mustafa")
             mDoc.add(Paragraph(data))
-//            mDoc.add(Paragraph(data))
+//            mDoc.add(Para)
             mDoc.add(Paragraph(data2))
             mDoc.add(Paragraph(data3))
             mDoc.add(Paragraph(data4))

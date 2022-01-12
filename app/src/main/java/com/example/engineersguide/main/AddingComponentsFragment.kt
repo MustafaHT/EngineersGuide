@@ -4,28 +4,29 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
-import com.example.engineersguide.model.components.ComponentApi
+import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.ApiServiceRepository
+import com.example.engineersguide.repositories.FirebaseRepository
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import java.io.File
-import java.util.*
 
 
 private lateinit var apiServiceRepository: ApiServiceRepository
@@ -34,13 +35,17 @@ private const val TAG = "AddingComponentsFragment"
 class AddingComponentsFragment : Fragment() {
 
     private val IMAGE_PICKER = 0
+    private var image:Uri? = null
 
     private lateinit var binding: FragmentAddingComponentsBinding
 
     private val addingComponentsViewModel = AddingComponentsViewModel()
+    private val firestorageViewModel = FirestorageViewModel()
+
+    val fireStorageRepo = FirebaseRepository()
 
     private lateinit var progressDialog: ProgressDialog
-    private val addList = mutableListOf<ComponentApi>()
+    private val addList = mutableListOf<ComponentModel>()
     private var mStorage: StorageReference? = null
 
     private val viewModel: ComponentsViewModel by activityViewModels()
@@ -76,34 +81,41 @@ class AddingComponentsFragment : Fragment() {
         }
 
 
-        binding.addComponent.setOnClickListener {
-            val title = binding.titleEditText.text.toString()
-            val descreption = binding.descreptionEditText.text.toString()
-            val functionality = binding.functionlityEditText.text.toString()
-            val equation = binding.equationsEditText.text.toString()
-            val source1 = binding.source1EditText.text.toString()
-            val source2 = binding.source2EditText.text.toString()
-            val source3 = binding.source3EditText.text.toString()
-            Log.d(TAG, "add Component Button")
-            addingComponentsViewModel.callComponents(
-                title,
-                descreption,
-                functionality,
-                equation,
-                source1,
-                source2,
-                source3
-            )
 
-              //  viewModel.callComponents()
-               // findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+        binding.addComponent.setOnClickListener {
+            viewModel.selectedComponent.observe(viewLifecycleOwner,{
+                it?.let {component ->
+                    val title = binding.titleEditText.text.toString()
+                    val imageView = "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                    val descreption = binding.descreptionEditText.text.toString()
+                    val functionality = binding.functionlityEditText.text.toString()
+                    val equation = binding.equationsEditText.text.toString()
+                    val source1 = binding.source1EditText.text.toString()
+                    val source2 = binding.source2EditText.text.toString()
+                    val source3 = binding.source3EditText.text.toString()
+                    Log.d(TAG, "add Component Button")
+                    addingComponentsViewModel.callComponents(
+                        title,
+                        imageView,
+                        descreption,
+                        functionality,
+                        equation,
+                        source1,
+                        source2,
+                        source3
+                    )
+                }
+            })
+            image?.let { it1 -> firestorageViewModel.uploadingComponentImage(it1) }
+                viewModel.callComponents()
+                findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
 
         }
 
         //=============================================================================================================
 
         // giving a limit for of to the title
-        val titleLimit = 35
+        val titleLimit = 25
         binding.titleEditText.doOnTextChanged { text, start, before, count ->
             val titleLength = text?.length.toString()
 
@@ -132,7 +144,20 @@ class AddingComponentsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
 
-//        val imagePath = Matisse.obtainPathResult(data)[0]
+        if (requestCode == IMAGE_PICKER && resultCode == RESULT_OK){
+            //here this code used to show the image that the user selected inside the components imageView
+            Log.d(TAG,"Why? why?")
+            image = Matisse.obtainResult(data)[0]
+            Glide.with(requireContext()).load(image).into(binding.ComponentImageView)
+            // instead of using binding.ComponentImageView.setImageURI(data?.data)
+            // I used Glide because setImageURI make the image that have been selected zoomed inside
+            // the imageView ...
+        }
+
+
+
+
+
 //
 //        val imageFile = File(imagePath)
 //
@@ -160,7 +185,7 @@ class AddingComponentsFragment : Fragment() {
         Matisse.from(this)
             .choose(MimeType.ofImage(),false)
             .capture(true)
-            .captureStrategy(CaptureStrategy(true,"com.example.engineersguide.main"))
+            .captureStrategy(CaptureStrategy(true,"com.example.engineersguide"))
             .forResult(IMAGE_PICKER)
     }
 
@@ -174,6 +199,8 @@ class AddingComponentsFragment : Fragment() {
                 progressDialog.dismiss()
                 findNavController().popBackStack()
                 addingComponentsViewModel.addedComponentLiveData.postValue(null)
+
+//                Glide.with(requireContext()).load("").into(binding.ComponentImageView)
             }
         })
         addingComponentsViewModel.addedComponentLiveError.observe(viewLifecycleOwner, {
@@ -182,4 +209,9 @@ class AddingComponentsFragment : Fragment() {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         })
     }
+
+
+
+
+
 }

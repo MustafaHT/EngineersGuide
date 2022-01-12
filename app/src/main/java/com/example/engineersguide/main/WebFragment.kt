@@ -3,32 +3,23 @@ package com.example.engineersguide.main
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentOnAttachListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentWebBinding
-import com.example.engineersguide.model.components.ComponentApi
-import kotlin.Unit.toString
+import com.example.engineersguide.model.components.ComponentModel
 
 private const val TAG = "WebFragment"
 
 class WebFragment : Fragment() {
 
     private lateinit var binding: FragmentWebBinding
-    val selectedComponent = MutableLiveData<ComponentApi>()
+    val selectedComponent = MutableLiveData<ComponentModel>()
     private val viewModel: ComponentsViewModel by activityViewModels()
 
 

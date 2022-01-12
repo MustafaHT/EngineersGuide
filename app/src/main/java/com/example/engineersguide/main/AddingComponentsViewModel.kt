@@ -4,27 +4,28 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.engineersguide.model.components.ComponentApi
+import com.bumptech.glide.RequestManager
+import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.ApiServiceRepository
-import com.google.firebase.components.Component
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 
 private const val TAG = "AddingComponentsViewMod"
 
 class AddingComponentsViewModel : ViewModel() {
-
+    private val urlS = ""
 
     private val apiRepo = ApiServiceRepository.get()
 
 
-    val addedComponentLiveData = MutableLiveData<ComponentApi>()
+    val addedComponentLiveData = MutableLiveData<ComponentModel>()
     val addedComponentLiveError = MutableLiveData<String>()
+
 
 
     fun callComponents(
         title: String,
+        imageView: String,
         descreption: String,
         functionality: String,
         equation: String,
@@ -35,17 +36,17 @@ class AddingComponentsViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val component = ComponentApi(
-                    "",
+                val component = ComponentModel(
+                    imageView,
                     title,
                     descreption,
                     functionality,
                     equation,
                     "",
+                    false,
                     res1,
                     res2,
-                    res3,
-                    false
+                    res3
                 )
                 val response = apiRepo.addComponent(component)
 
@@ -69,24 +70,5 @@ class AddingComponentsViewModel : ViewModel() {
             }
         }
     }
-
-//    fun uploadUserImage(file: File) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            try {
-//                val response = apiRepo.uploadUserImage(file)
-//
-//                if (response.isSuccessful) {
-//                    uploadImageLiveData.postValue("successful")
-//                } else {
-//                    Log.d(TAG,response.message())
-//                    profileErrorsLiveData.postValue(response.message())
-//                }
-//            } catch (e: Exception) {
-//                Log.d(TAG,e.message.toString())
-//                profileErrorsLiveData.postValue(e.message.toString())
-//            }
-//        }
-//    }
-
 
 }
