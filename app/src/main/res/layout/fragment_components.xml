@@ -8,14 +8,22 @@
     android:background="@color/lightBlack">
 
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/componentsRecyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_anchor="@+id/progressBar"
-        app:layout_anchorGravity="center" />
+        android:layout_height="wrap_content"
+        android:id="@+id/swipeToRefresh">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/componentsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_anchor="@+id/progressBar"
+            app:layout_anchorGravity="center" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
     <ProgressBar

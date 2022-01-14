@@ -94,7 +94,7 @@ class ComponentsFragment : Fragment() {
 //            binding.noComponentImageViewComponentFragment.visibility = View.INVISIBLE
 //        }
 
-
+        refreshApp()
 
         binding.componentsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -191,6 +191,18 @@ class ComponentsFragment : Fragment() {
 //        componentFragmentSwipeLayout.addDrag(SwipeLayout.DragEdge.Left,componentFragmentSwipeLayout.findViewById(R.id.linear_sol))
 //        componentFragmentSwipeLayout.addDrag(SwipeLayout.DragEdge.Right,componentFragmentSwipeLayout.findViewById(R.id.linear_sag))
 
+    }
+
+    private fun refreshApp() {
+        binding.swipeToRefresh.setOnRefreshListener {
+            if (binding.swipeToRefresh.isRefreshing){
+                viewModel.callComponents()
+                binding.swipeToRefresh.isRefreshing = false
+            }else{
+                binding.swipeToRefresh.isRefreshing = true
+            }
+            Toast.makeText(requireContext(), "page refreshed", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun observers() {
@@ -338,7 +350,7 @@ class ComponentsFragment : Fragment() {
 
                 return true
             }
-            // here i used to return the previous list if the theres nothing inside the search bar ..
+            // here i used to return the previous list if the theres nothing inside the search bar ..s
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
                 componentsAdapter.submitList(allComponents)
                 return true

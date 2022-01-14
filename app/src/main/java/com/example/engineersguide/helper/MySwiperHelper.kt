@@ -137,7 +137,7 @@ abstract class MySwiperHelper(
             }else{
                 buttonList!!.clear()
                 buttonBuffer.clear()
-                swipeThrshold = 0.5f*buttonList!!.size.toFloat()*buttonWidth.toFloat()
+                swipeThrshold = 0.005f*buttonList!!.size.toFloat()*buttonWidth.toFloat()
                 recoverSwipeItem()
             }
         }
@@ -147,11 +147,11 @@ abstract class MySwiperHelper(
     }
 
     override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-        return 0.1f*defaultValue
+        return 0.0001f*defaultValue
     }
 
     override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
-        return 0.5f*defaultValue
+        return 0.0005f*defaultValue
     }
 
     override fun onChildDraw(
@@ -186,10 +186,10 @@ abstract class MySwiperHelper(
         super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive)
 
     }
-
+// this function control the width of the button inside the swipe functionality
     private fun drawButton(c: Canvas, itemView: View, buffer: MutableList<MyButton>, pos: Int, translationX: Float) {
         var right = itemView.right.toFloat()
-        val dButtonWidth =  -1*translationX/buffer.size
+        val dButtonWidth =  -1f*translationX/buffer.size
         for (button in buffer){
             val left = right - dButtonWidth
             button.onDraw(c, RectF(left,itemView.top.toFloat(),right,itemView.bottom.toFloat()),pos)

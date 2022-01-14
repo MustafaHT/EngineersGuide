@@ -22,7 +22,6 @@ import java.lang.ref.WeakReference
 class ComponentsRecyclerViewAdapter(private val context: Context, val viewModel: ComponentsViewModel) :
     RecyclerView.Adapter<ComponentsRecyclerViewAdapter.ComponentsViewHolder>() {
 
-    private lateinit var selevetedComponent: ComponentModel
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ComponentModel>() {
         override fun areItemsTheSame(oldItem: ComponentModel, newItem: ComponentModel): Boolean {
@@ -59,8 +58,7 @@ class ComponentsRecyclerViewAdapter(private val context: Context, val viewModel:
 
         Glide.with(context)
             .load(item.componentImageUrl)
-            .diskCacheStrategy(
-                DiskCacheStrategy.NONE)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
             .into(holder.componentImageView)
 
@@ -74,11 +72,6 @@ class ComponentsRecyclerViewAdapter(private val context: Context, val viewModel:
             holder.descreptionTextView.text =
                 holder.descreptionTextView.text.substring(0, 75 - 3) + "..."
         }
-
-//        holder.onDeleteClcik = {
-////            viewModel.deleteComponent(selevetedComponent)
-//        }
-
 
 
     }

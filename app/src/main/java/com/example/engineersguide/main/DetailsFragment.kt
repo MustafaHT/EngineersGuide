@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentDetailsBinding
 import com.example.engineersguide.model.components.ComponentModel
@@ -64,7 +65,7 @@ class DetailsFragment : Fragment() {
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
             it?.let { component ->
                 binding.titleTextViewDetails.text = component.componentName
-                Glide.with(requireContext()).load(component.componentImageUrl).into(binding.imageViewDetails)
+                Glide.with(requireContext()).load(component.componentImageUrl).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(binding.imageViewDetails)
                 binding.descreptionTextViewDetails.text = component.description
                 binding.functionalityTextViewDetails.text = component.functionality
                 binding.equationsTextViewDetails.text = component.equations

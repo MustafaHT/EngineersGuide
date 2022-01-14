@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentEditBinding
 import com.example.engineersguide.model.components.ComponentModel
@@ -27,6 +28,7 @@ import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 
 private const val TAG = "EditFragment"
+
 class EditFragment : Fragment() {
 
     private lateinit var binding: FragmentEditBinding
@@ -44,7 +46,9 @@ class EditFragment : Fragment() {
     private val viewModel: ComponentsViewModel by activityViewModels()
     private lateinit var selectedComponent: ComponentModel
 
-    private val previousPic =  "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+    private val previousPic =
+        "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,12 +64,12 @@ class EditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        Log.d(TAG,previousPic)
 
-        Log.d(TAG,imageButtonNum.toString())
+        Log.d(TAG, imageButtonNum.toString())
 
         binding.componentImageButtonEditFragment.setOnClickListener {
             showImagePicker()
             imageButtonNum++
-            Log.d(TAG,imageButtonNum.toString())
+            Log.d(TAG, imageButtonNum.toString())
         }
 
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
@@ -79,23 +83,26 @@ class EditFragment : Fragment() {
                 binding.source2EditTextEditFragment.setText(component.source2)
                 binding.source3EditTextEditFragment.setText(component.source3)
                 selectedComponent = component
-                Glide.with(requireContext()).load(selectedComponent.componentImageUrl).into(binding.ComponentImageViewEditFragment)
+                Glide.with(requireContext()).load(selectedComponent.componentImageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(binding.ComponentImageViewEditFragment)
 
             }
         })
         binding.saveComponentEditFragment.setOnClickListener {
             selectedComponent.componentName = binding.titleEditTextEditFragment.text.toString()
-            if(imageButtonNum != 0){
-                Log.d(TAG,imageButtonNum.toString())
-                selectedComponent.componentImageUrl  = "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
-                Log.d(TAG,"inside if")
-                Log.d(TAG,"upload url name ${fireStorageRepo.uploadComponentImage().name}")
-                Log.d(TAG,"firebaseRepo url name ${fireStorageRepo.name}")
-            }else {
-                Log.d(TAG,imageButtonNum.toString())
+            if (imageButtonNum != 0) {
+                Log.d(TAG, imageButtonNum.toString())
+                selectedComponent.componentImageUrl =
+                    "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                Log.d(TAG, "inside if")
+                Log.d(TAG, "upload url name ${fireStorageRepo.uploadComponentImage().name}")
+                Log.d(TAG, "firebaseRepo url name ${fireStorageRepo.name}")
+            } else {
+                Log.d(TAG, imageButtonNum.toString())
                 Log.d(TAG, "inside else")
-                Log.d(TAG,"upload url name ${fireStorageRepo.uploadComponentImage().name}")
-                Log.d(TAG,"firebaseRepo url name ${fireStorageRepo.name}")
+                Log.d(TAG, "upload url name ${fireStorageRepo.uploadComponentImage().name}")
+                Log.d(TAG, "firebaseRepo url name ${fireStorageRepo.name}")
                 selectedComponent.componentImageUrl
             }
             selectedComponent.description = binding.descreptionEditTextEditFragment.text.toString()
