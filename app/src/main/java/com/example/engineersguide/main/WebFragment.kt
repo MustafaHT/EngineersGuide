@@ -48,7 +48,7 @@ class WebFragment : Fragment() {
         binding.wbWebView.webViewClient = WebViewClient()
 
         binding.wbWebView.apply {
-
+            if(link.contains("https://")){
                 if (link.substring(0, 8) != "https://") {
                     loadUrl("https://www.google.com/search?q=${link}")
                     settings.javaScriptEnabled = true
@@ -58,6 +58,13 @@ class WebFragment : Fragment() {
                     settings.javaScriptEnabled = true
                     settings.safeBrowsingEnabled = true
                 }
+            }
+            else
+            {
+                loadUrl("https://www.google.com/search?q=${link}")
+                settings.javaScriptEnabled = true
+                settings.safeBrowsingEnabled = true
+            }
         }
     }
 //    fun webViewOnBackPressed(){

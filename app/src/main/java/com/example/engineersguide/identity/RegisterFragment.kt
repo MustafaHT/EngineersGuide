@@ -1,5 +1,6 @@
 package com.example.engineersguide.identity
 
+import android.app.ProgressDialog
 import android.media.Image
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentRegisterBinding
 import com.example.engineersguide.datamodels.User
+import com.example.engineersguide.util.RegisterValidations
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
@@ -32,10 +34,17 @@ class RegisterFragment : Fragment() {
 
     private val userCollectionRef = Firebase.firestore.collection("Users")
 
+    private val registerValidations = RegisterValidations()
+
+    private lateinit var progressDialog: ProgressDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        progressDialog = ProgressDialog(requireActivity())
+        progressDialog.setTitle("Loading...")
+        progressDialog.setCancelable(false)
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,6 +54,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         auth = FirebaseAuth.getInstance()
 
@@ -79,21 +89,26 @@ class RegisterFragment : Fragment() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener() { task ->
                         if (password == confirmPassword) {
-                            if (task.isSuccessful) {
-                                Toast.makeText(
-                                    context,
-                                    "Registered Successfully",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    task.exception?.message.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                            if (registerValidations.emailIsValid(email)) {
+                                if (registerValidations.passwordIsValid(password)){
+                                    progressDialog.show()
+                                if (task.isSuccessful) {
+                                    Toast.makeText(
+                                        context,
+                                        "Registered Successfully",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        task.exception?.message.toString(),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
+                        }
                         } else {
                             Toast.makeText(
                                 context,

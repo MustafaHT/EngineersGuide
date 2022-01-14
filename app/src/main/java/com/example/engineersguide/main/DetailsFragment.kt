@@ -74,6 +74,30 @@ class DetailsFragment : Fragment() {
                 selectedComponent = component
 
 
+                //==========================================================================================================================
+
+                if(selectedComponent.source1.isEmpty() && selectedComponent.source2.isEmpty() && selectedComponent.source3.isEmpty()) {
+                    binding.resourcesTextView.visibility = View.INVISIBLE
+                    binding.imageButtonForSource1.visibility = View.INVISIBLE
+                    binding.imageButtonForSource2.visibility = View.INVISIBLE
+                    binding.imageButtonForSource3.visibility = View.INVISIBLE
+
+                }
+
+                    if (selectedComponent.source1.isNotEmpty() && selectedComponent.source2.isEmpty() && selectedComponent.source3.isEmpty()) {
+                        binding.imageButtonForSource2.visibility = View.INVISIBLE
+                        binding.imageButtonForSource3.visibility = View.INVISIBLE
+
+                    }
+
+                        if(selectedComponent.source1.isNotEmpty() && selectedComponent.source2.isNotEmpty() && selectedComponent.source3.isEmpty()){
+                            binding.imageButtonForSource3.visibility = View.INVISIBLE
+                        }
+
+
+//=====================================================================
+
+
                 if (binding.descreptionTextViewDetails.text.length >= 1000) {
                     binding.viewDescreptionDetails.visibility = View.VISIBLE
                     binding.descreptionTextViewDetails.text =
@@ -147,24 +171,6 @@ class DetailsFragment : Fragment() {
                     it.findNavController().navigate(R.id.action_detailsFragment_to_webFragment, this)
                 }
             }
-        }
-
-
-        binding.pdfButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
-                if (checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                    val permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    requestPermissions(permission, STORAGE_CODE)
-                }else{
-                    savePDF()
-                }
-            }else{
-                savePDF()
-            }
-        }
-        binding.deleteButton.setOnClickListener {
-            viewModel.deleteComponent(selectedComponent.id.toInt())
-            findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
         }
 
     }

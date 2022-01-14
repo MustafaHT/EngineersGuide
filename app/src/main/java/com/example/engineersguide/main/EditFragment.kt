@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentEditBinding
 import com.example.engineersguide.model.components.ComponentModel
+import com.example.engineersguide.repositories.FirebaseRepository
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.zhihu.matisse.Matisse
@@ -34,10 +35,16 @@ class EditFragment : Fragment() {
 
     private val IMAGE_PICKER = 0
 
+    // this will be used whenever we press the image button the number will increase and this will help inside if condition
+    var imageButtonNum = 0
+
+
     private val firestorageViewModel = FirestorageViewModel()
+    private val fireStorageRepo = FirebaseRepository()
     private val viewModel: ComponentsViewModel by activityViewModels()
     private lateinit var selectedComponent: ComponentModel
 
+    private val previousPic =  "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,35 +55,49 @@ class EditFragment : Fragment() {
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        Log.d(TAG,previousPic)
+
+        Log.d(TAG,imageButtonNum.toString())
 
         binding.componentImageButtonEditFragment.setOnClickListener {
             showImagePicker()
+            imageButtonNum++
+            Log.d(TAG,imageButtonNum.toString())
         }
-
-
 
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
             it?.let { component ->
 
                 binding.titleEditTextEditFragment.setText(component.componentName)
                 binding.descreptionEditTextEditFragment.setText(component.description)
-                val pic = Glide.with(requireContext()).load(component.componentImageUrl)
-                    .into(binding.ComponentImageViewEditFragment)
                 binding.functionlityEditTextEditFragment.setText(component.functionality)
                 binding.equationsEditTextEditFragment.setText(component.equations)
                 binding.source1EditTextEditFragment.setText(component.source1)
                 binding.source2EditTextEditFragment.setText(component.source2)
                 binding.source3EditTextEditFragment.setText(component.source3)
                 selectedComponent = component
+                Glide.with(requireContext()).load(selectedComponent.componentImageUrl).into(binding.ComponentImageViewEditFragment)
 
             }
         })
-
         binding.saveComponentEditFragment.setOnClickListener {
             selectedComponent.componentName = binding.titleEditTextEditFragment.text.toString()
-            selectedComponent.componentImageUrl = Glide.with(requireContext()).load(pic).into(binding.ComponentImageViewEditFragment).toString()
+            if(imageButtonNum != 0){
+                Log.d(TAG,imageButtonNum.toString())
+                selectedComponent.componentImageUrl  = "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                Log.d(TAG,"inside if")
+                Log.d(TAG,"upload url name ${fireStorageRepo.uploadComponentImage().name}")
+                Log.d(TAG,"firebaseRepo url name ${fireStorageRepo.name}")
+            }else {
+                Log.d(TAG,imageButtonNum.toString())
+                Log.d(TAG, "inside else")
+                Log.d(TAG,"upload url name ${fireStorageRepo.uploadComponentImage().name}")
+                Log.d(TAG,"firebaseRepo url name ${fireStorageRepo.name}")
+                selectedComponent.componentImageUrl
+            }
             selectedComponent.description = binding.descreptionEditTextEditFragment.text.toString()
             selectedComponent.functionality =
                 binding.functionlityEditTextEditFragment.text.toString()
@@ -86,7 +107,7 @@ class EditFragment : Fragment() {
             image?.let { it1 -> firestorageViewModel.uploadingComponentImage(it1) }
             viewModel.updateComponent(selectedComponent.id.toInt(), selectedComponent)
             findNavController().navigate(R.id.action_editFragment_to_componentsFragment)
-
+            imageButtonNum = 0
         }
 
         val titleLimit = 25

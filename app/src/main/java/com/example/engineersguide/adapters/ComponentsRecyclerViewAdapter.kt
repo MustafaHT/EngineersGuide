@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.engineersguide.R
 import com.example.engineersguide.main.ComponentsViewModel
 import com.example.engineersguide.model.components.ComponentModel
@@ -56,7 +57,12 @@ class ComponentsRecyclerViewAdapter(private val context: Context, val viewModel:
         holder.titleTextview.text = item.componentName
         holder.descreptionTextView.text = item.description
 
-        Glide.with(context).load(item.componentImageUrl).into(holder.componentImageView)
+        Glide.with(context)
+            .load(item.componentImageUrl)
+            .diskCacheStrategy(
+                DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(holder.componentImageView)
 
 
         holder.itemView.setOnClickListener {

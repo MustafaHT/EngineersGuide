@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.engineersguide.R
+import com.example.engineersguide.api.ComponentsAPI
 import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
 import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.ApiServiceRepository
@@ -43,6 +44,8 @@ class AddingComponentsFragment : Fragment() {
     private val firestorageViewModel = FirestorageViewModel()
 
     val fireStorageRepo = FirebaseRepository()
+
+    private lateinit var selectedItem:ComponentModel
 
     private lateinit var progressDialog: ProgressDialog
     private val addList = mutableListOf<ComponentModel>()
@@ -72,7 +75,6 @@ class AddingComponentsFragment : Fragment() {
 
         binding.componentImageButton.setOnClickListener() {
             showImagePicker()
-
 //            val intentImage = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
 //            intentImage.type = "image/*"
 //                activity?.startActivityForResult(intentImage, 2)
@@ -146,13 +148,13 @@ class AddingComponentsFragment : Fragment() {
 
         if (requestCode == IMAGE_PICKER && resultCode == RESULT_OK){
             //here this code used to show the image that the user selected inside the components imageView
-            Log.d(TAG,"Why? why?")
             image = Matisse.obtainResult(data)[0]
             Glide.with(requireContext()).load(image).into(binding.ComponentImageView)
             // instead of using binding.ComponentImageView.setImageURI(data?.data)
             // I used Glide because setImageURI make the image that have been selected zoomed inside
             // the imageView ...
         }
+
 
 
 
