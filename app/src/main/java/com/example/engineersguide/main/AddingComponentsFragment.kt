@@ -189,6 +189,10 @@ class AddingComponentsFragment : Fragment() {
             .capture(true)
             .captureStrategy(CaptureStrategy(true,"com.example.engineersguide"))
             .forResult(IMAGE_PICKER)
+
+//        if (MimeType == null){
+//            imageButton
+//        }
     }
 
     @SuppressLint("LongLogTag")

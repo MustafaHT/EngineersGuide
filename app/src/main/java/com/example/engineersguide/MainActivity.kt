@@ -45,10 +45,7 @@ val notificationId = 101
 
 class MainActivity : AppCompatActivity() {
 
-//    var sharedPref = this.getSharedPreferences(SHARED_PREF_FILE, Context.MODE_PRIVATE)
-//    var sharedPrefEditor = sharedPref.edit()
-//    sharedPrefEditor.putBoolean("a", true)
-//    sharedPrefEditor.commit()
+    private var isBackPressOnce = 0L
 
     private lateinit var binding: ActivityMainBinding
 
@@ -119,7 +116,19 @@ class MainActivity : AppCompatActivity() {
 
             "Add Component" -> super.onBackPressed()
 
-            else -> Toast.makeText(this, "This button has been disabled", Toast.LENGTH_SHORT).show()
+            "Components" -> if (isBackPressOnce + 2000 > System.currentTimeMillis()){
+                super.onBackPressed()
+            }else{
+                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
+                isBackPressOnce = System.currentTimeMillis()
+            }
+
+            "Login" ->  if (isBackPressOnce + 2000 > System.currentTimeMillis()){
+                super.onBackPressed()
+            }else{
+                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
+                isBackPressOnce = System.currentTimeMillis()
+            }
         }
     }
 

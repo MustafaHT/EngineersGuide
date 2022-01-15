@@ -19,8 +19,6 @@ private const val TAG = "WebFragment"
 class WebFragment : Fragment() {
 
     private lateinit var binding: FragmentWebBinding
-    val selectedComponent = MutableLiveData<ComponentModel>()
-    private val viewModel: ComponentsViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -67,10 +65,4 @@ class WebFragment : Fragment() {
             }
         }
     }
-//    fun webViewOnBackPressed(){
-//        if (binding.wbWebView.canGoBack()) binding.wbWebView.goBack()
-//    }
-//    companion object{
-//        va
-//    }
 }

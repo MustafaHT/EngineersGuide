@@ -201,7 +201,6 @@ class ComponentsFragment : Fragment() {
             }else{
                 binding.swipeToRefresh.isRefreshing = true
             }
-            Toast.makeText(requireContext(), "page refreshed", Toast.LENGTH_SHORT).show()
         }
     }
 

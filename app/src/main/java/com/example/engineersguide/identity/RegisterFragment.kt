@@ -89,9 +89,9 @@ class RegisterFragment : Fragment() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener() { task ->
                         if (password == confirmPassword) {
-                            if (registerValidations.emailIsValid(email)) {
-                                if (registerValidations.passwordIsValid(password)){
-                                    progressDialog.show()
+//                            if (registerValidations.emailIsValid(email)) {
+//                                if (registerValidations.passwordIsValid(password)){
+//                                    progressDialog.show()
                                 if (task.isSuccessful) {
                                     Toast.makeText(
                                         context,
@@ -107,8 +107,8 @@ class RegisterFragment : Fragment() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
-                            }
-                        }
+//                            }
+//                        }
                         } else {
                             Toast.makeText(
                                 context,
@@ -134,6 +134,7 @@ class RegisterFragment : Fragment() {
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                Log.d(TAG,"Hello"+e.message)
             }
         }
 

@@ -1,6 +1,7 @@
 package com.example.engineersguide.main
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.MimeTypeFilter
 import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
@@ -23,6 +25,7 @@ import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.FirebaseRepository
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.itextpdf.text.Jpeg
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
@@ -38,16 +41,13 @@ class EditFragment : Fragment() {
     private val IMAGE_PICKER = 0
 
     // this will be used whenever we press the image button the number will increase and this will help inside if condition
-    var imageButtonNum = 0
+    private var imageButtonNum = 0
 
 
     private val firestorageViewModel = FirestorageViewModel()
     private val fireStorageRepo = FirebaseRepository()
     private val viewModel: ComponentsViewModel by activityViewModels()
     private lateinit var selectedComponent: ComponentModel
-
-    private val previousPic =
-        "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,11 +62,11 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        Log.d(TAG,previousPic)
 
         Log.d(TAG, imageButtonNum.toString())
 
         binding.componentImageButtonEditFragment.setOnClickListener {
+            imageButtonNum = 0
             showImagePicker()
             imageButtonNum++
             Log.d(TAG, imageButtonNum.toString())
@@ -91,19 +91,20 @@ class EditFragment : Fragment() {
         })
         binding.saveComponentEditFragment.setOnClickListener {
             selectedComponent.componentName = binding.titleEditTextEditFragment.text.toString()
-            if (imageButtonNum != 0) {
+
+            // here this condition used to check if the user chosed a pic or NOT if he choosed a pic then the imageButtonNum will increase by 1 other wise will stay at 0
+            // 1 means that he choosed a pic
+            // 0 means the he hasn't changed it
+            if (imageButtonNum == 0) {
                 Log.d(TAG, imageButtonNum.toString())
-                selectedComponent.componentImageUrl =
-                    "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                selectedComponent.componentImageUrl
                 Log.d(TAG, "inside if")
-                Log.d(TAG, "upload url name ${fireStorageRepo.uploadComponentImage().name}")
-                Log.d(TAG, "firebaseRepo url name ${fireStorageRepo.name}")
+                Log.d(TAG,imageButtonNum.toString())
             } else {
                 Log.d(TAG, imageButtonNum.toString())
                 Log.d(TAG, "inside else")
-                Log.d(TAG, "upload url name ${fireStorageRepo.uploadComponentImage().name}")
-                Log.d(TAG, "firebaseRepo url name ${fireStorageRepo.name}")
-                selectedComponent.componentImageUrl
+                selectedComponent.componentImageUrl =
+                    "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
             }
             selectedComponent.description = binding.descreptionEditTextEditFragment.text.toString()
             selectedComponent.functionality =
@@ -116,7 +117,7 @@ class EditFragment : Fragment() {
             findNavController().navigate(R.id.action_editFragment_to_componentsFragment)
             imageButtonNum = 0
         }
-
+        // here i used this code to give the title a limited length or limited number of characters that the user can use in the title editTextView
         val titleLimit = 25
         binding.titleEditTextEditFragment.doOnTextChanged { text, start, before, count ->
             val titleLength = text?.length.toString()
@@ -132,12 +133,18 @@ class EditFragment : Fragment() {
         }
     }
 
-    fun showImagePicker() {
+    private fun showImagePicker() {
         Matisse.from(this)
             .choose(MimeType.ofImage(), false)
-            .capture(true)
+            .capture(false)
             .captureStrategy(CaptureStrategy(true, "com.example.engineersguide"))
             .forResult(IMAGE_PICKER)
+        // this condition is to make sure that the imageButtonNum stays 0 when the user does NOT choose any Pic
+        if (image.toString().length == 4){
+            imageButtonNum--
+            Log.d(TAG,"inside showImage")
+        }
+        Log.d(TAG,"image"+image.toString().length.toString())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -146,6 +153,14 @@ class EditFragment : Fragment() {
             //here this code used to show the image that the user selected inside the components imageView
             Log.d(TAG, "Why? why?")
             image = Matisse.obtainResult(data)[0]
+            // And in this condition if the user choosed any pic the length of the image will increase for this reason I used the length to know if the user change the pic or not
+            // other wise the pic will stay the same if we return to the first condition above
+            if (image.toString().length > 4){
+                imageButtonNum++
+                Log.d(TAG,imageButtonNum.toString())
+                Log.d(TAG,"inside onActivityResult")
+            }
+            Log.d(TAG,image.toString().length.toString())
             Glide.with(requireContext()).load(image).into(binding.ComponentImageViewEditFragment)
         }
     }
