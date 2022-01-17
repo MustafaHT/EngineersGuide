@@ -36,7 +36,7 @@ private const val TAG = "AddingComponentsFragment"
 class AddingComponentsFragment : Fragment() {
 
     private val IMAGE_PICKER = 0
-    private var image:Uri? = null
+    private var image: Uri? = null
 
     private lateinit var binding: FragmentAddingComponentsBinding
 
@@ -45,13 +45,16 @@ class AddingComponentsFragment : Fragment() {
 
     val fireStorageRepo = FirebaseRepository()
 
-    private lateinit var selectedItem:ComponentModel
+    private lateinit var selectedItem: ComponentModel
 
     private lateinit var progressDialog: ProgressDialog
     private val addList = mutableListOf<ComponentModel>()
     private var mStorage: StorageReference? = null
 
     private val viewModel: ComponentsViewModel by activityViewModels()
+
+    private var imageButtonNum = 0
+    private lateinit var imageView:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +77,9 @@ class AddingComponentsFragment : Fragment() {
         mStorage = FirebaseStorage.getInstance().reference
 
         binding.componentImageButton.setOnClickListener() {
+            imageButtonNum = 0
             showImagePicker()
+            imageButtonNum++
 //            val intentImage = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
 //            intentImage.type = "image/*"
 //                activity?.startActivityForResult(intentImage, 2)
@@ -85,10 +90,15 @@ class AddingComponentsFragment : Fragment() {
 
 
         binding.addComponent.setOnClickListener {
-            viewModel.selectedComponent.observe(viewLifecycleOwner,{
-                it?.let {component ->
+            viewModel.selectedComponent.observe(viewLifecycleOwner, {
+                it?.let { component ->
                     val title = binding.titleEditText.text.toString()
-                    val imageView = "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                    if (imageButtonNum == 0) {
+                         imageView =
+                            ""
+                    }else{
+                         imageView = "https://firebasestorage.googleapis.com/v0/b/engineers-guide-bdbaa.appspot.com/o/componentsPictures%2F${fireStorageRepo.name}?alt=media&token=1ba24a8a-2794-4849-ba3f-14dfd27e8f16"
+                    }
                     val descreption = binding.descreptionEditText.text.toString()
                     val functionality = binding.functionlityEditText.text.toString()
                     val equation = binding.equationsEditText.text.toString()
@@ -109,8 +119,8 @@ class AddingComponentsFragment : Fragment() {
                 }
             })
             image?.let { it1 -> firestorageViewModel.uploadingComponentImage(it1) }
-                viewModel.callComponents()
-                findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+            viewModel.callComponents()
+            findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
 
         }
 
@@ -146,18 +156,21 @@ class AddingComponentsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
 
-        if (requestCode == IMAGE_PICKER && resultCode == RESULT_OK){
+        if (requestCode == IMAGE_PICKER && resultCode == RESULT_OK) {
             //here this code used to show the image that the user selected inside the components imageView
             image = Matisse.obtainResult(data)[0]
             Glide.with(requireContext()).load(image).into(binding.ComponentImageView)
             // instead of using binding.ComponentImageView.setImageURI(data?.data)
             // I used Glide because setImageURI make the image that have been selected zoomed inside
             // the imageView ...
+            if (image.toString().length > 4) {
+                imageButtonNum++
+                Log.d(TAG, imageButtonNum.toString())
+                Log.d(TAG, "inside onActivityResult")
+            }
+            Log.d(TAG, image.toString().length.toString())
+
         }
-
-
-
-
 
 
 //
@@ -183,41 +196,44 @@ class AddingComponentsFragment : Fragment() {
 //        }
     }
 
-    fun showImagePicker(){
+    @SuppressLint("LongLogTag")
+    fun showImagePicker() {
         Matisse.from(this)
-            .choose(MimeType.ofImage(),false)
+            .choose(MimeType.ofImage(), false)
             .capture(true)
-            .captureStrategy(CaptureStrategy(true,"com.example.engineersguide"))
+            .captureStrategy(CaptureStrategy(true, "com.example.engineersguide"))
             .forResult(IMAGE_PICKER)
+
+        if (image.toString().length == 4) {
+            imageButtonNum--
+            Log.d(TAG, "inside showImage")
 
 //        if (MimeType == null){
 //            imageButton
 //        }
+        }
     }
 
-    @SuppressLint("LongLogTag")
-    fun observer() {
-        addingComponentsViewModel.addedComponentLiveData.observe(viewLifecycleOwner, {
-            it?.let {
-                Log.d(TAG, "observer liveData")
-                addList.add(it)
-                Log.d("here", it.toString())
-                progressDialog.dismiss()
-                findNavController().popBackStack()
-                addingComponentsViewModel.addedComponentLiveData.postValue(null)
+        @SuppressLint("LongLogTag")
+        fun observer() {
+            addingComponentsViewModel.addedComponentLiveData.observe(viewLifecycleOwner, {
+                it?.let {
+                    Log.d(TAG, "observer liveData")
+                    addList.add(it)
+                    Log.d("here", it.toString())
+                    progressDialog.dismiss()
+                    findNavController().popBackStack()
+                    addingComponentsViewModel.addedComponentLiveData.postValue(null)
 
 //                Glide.with(requireContext()).load("").into(binding.ComponentImageView)
-            }
-        })
-        addingComponentsViewModel.addedComponentLiveError.observe(viewLifecycleOwner, {
-            Log.d(TAG, "observer errorLiveData")
-            progressDialog.dismiss()
-            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
-        })
+                }
+            })
+            addingComponentsViewModel.addedComponentLiveError.observe(viewLifecycleOwner, {
+                Log.d(TAG, "observer errorLiveData")
+                progressDialog.dismiss()
+                Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+            })
+        }
+
+
     }
-
-
-
-
-
-}

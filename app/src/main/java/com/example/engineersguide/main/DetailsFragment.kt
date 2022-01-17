@@ -2,12 +2,14 @@ package com.example.engineersguide.main
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
@@ -65,7 +67,7 @@ class DetailsFragment : Fragment() {
         viewModel.selectedComponent.observe(viewLifecycleOwner, Observer {
             it?.let { component ->
                 binding.titleTextViewDetails.text = component.componentName
-                Glide.with(requireContext()).load(component.componentImageUrl).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(binding.imageViewDetails)
+                Glide.with(requireContext()).load(component.componentImageUrl).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).placeholder(R.drawable.component).into(binding.imageViewDetails)
                 binding.descreptionTextViewDetails.text = component.description
                 binding.functionalityTextViewDetails.text = component.functionality
                 binding.equationsTextViewDetails.text = component.equations
@@ -73,6 +75,40 @@ class DetailsFragment : Fragment() {
                 binding.source2TextViewDetails.text = component.source2
                 binding.source3TextViewDetails.text = component.source3
                 selectedComponent = component
+
+
+
+                if(selectedComponent.componentImageUrl != ""){
+                    binding.imageViewDetails.setOnClickListener {
+                        val view = View.inflate(context, R.layout.image, null)
+                        val builder = AlertDialog.Builder(context)
+                        builder.setView(view)
+
+                        val dialogImage = view.findViewById<ImageView>(R.id.imageDialog)
+
+
+
+                        Glide.with(requireContext())
+                            .load(selectedComponent.componentImageUrl)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .into(dialogImage)
+
+
+                        val dialog = builder.create()
+                        dialog.show()
+                        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                    }
+                }else{
+                    binding.imageViewDetails.setOnClickListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "there is no picture for this component",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
 
 
                 //==========================================================================================================================

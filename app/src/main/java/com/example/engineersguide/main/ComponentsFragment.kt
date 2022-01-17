@@ -1,6 +1,7 @@
 package com.example.engineersguide.main
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -54,9 +55,12 @@ class ComponentsFragment : Fragment() {
 //    private lateinit var logoutItem: MenuItem
 //    private lateinit var profileItem: MenuItem
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
 
 //        val firebaseAuth:FirebaseAuth = FirebaseAuth.getInstance()
 //        val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
@@ -64,6 +68,7 @@ class ComponentsFragment : Fragment() {
 //        if (firebaseUser != null ){
 //            findNavController().navigate(R.id.componentsFragment)
 //        }
+
     }
 
     override fun onCreateView(
@@ -84,9 +89,9 @@ class ComponentsFragment : Fragment() {
         setHasOptionsMenu(true)
         binding.bottomNavigationView.background = null
         componentsViewModel.callComponents()
-
         componentsAdapter = ComponentsRecyclerViewAdapter(requireContext(),componentsViewModel)
         binding.componentsRecyclerView.adapter = componentsAdapter
+
 
 //        if(componentsAdapter.itemCount == 0){
 //            binding.noComponentImageViewComponentFragment.visibility = View.VISIBLE
@@ -263,14 +268,22 @@ class ComponentsFragment : Fragment() {
                 sharedPrefEditor.commit()
                 findNavController().navigate(R.id.action_componentsFragment_to_loginFragment)
 
-                if (logoutItem.isChecked) {
-                    Toast.makeText(context, "LoggedOut Successfully", Toast.LENGTH_SHORT).show()
-                }
+//                if (logoutItem.isChecked) {
+//                    Toast.makeText(context, "LoggedOut Successfully", Toast.LENGTH_SHORT).show()
+//                }
 
             }
             R.id.setting_item -> {
                 findNavController().navigate(R.id.action_componentsFragment_to_settingsFragment)
             }
+
+            R.id.home-> {
+                findNavController().navigate(R.id.componentsFragment)
+            }
+
+//            R.id.favorite -> {
+//                findNavController().navigate(R.id.favorite)
+//            }
         }
 
 //        R.id.profile_item -> {

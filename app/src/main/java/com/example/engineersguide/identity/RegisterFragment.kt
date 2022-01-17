@@ -63,9 +63,6 @@ class RegisterFragment : Fragment() {
 //        var databaseRef = FirebaseDatabase.getInstance().getReference("User")
         //========================================================================
 
-        binding.backRegisterImageButton.setOnClickListener() {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }
 
         binding.registerButtonRegister.setOnClickListener() {
             val fName: String = binding.firstNameRegisterEditText.text.toString()
@@ -86,19 +83,23 @@ class RegisterFragment : Fragment() {
 //            }
 //  ===========================================================================
             if (fName.isNotEmpty() && lName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener() { task ->
+                        Log.d(TAG,"edit text is not empty")
                         if (password == confirmPassword) {
-//                            if (registerValidations.emailIsValid(email)) {
-//                                if (registerValidations.passwordIsValid(password)){
-//                                    progressDialog.show()
+                            Log.d(TAG,"pass are matched")
+                            if (registerValidations.emailIsValid(email)) {
+                                Log.d(TAG,"check for email")
+                                if (registerValidations.passwordIsValid(password)){
+                                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener() { task ->
+                                    Log.d(TAG,"check for password")
                                 if (task.isSuccessful) {
                                     Toast.makeText(
                                         context,
                                         "Registered Successfully",
                                         Toast.LENGTH_SHORT
-                                    )
-                                        .show()
+                                    ).show()
+                                    Log.d(TAG,"successful")
+
                                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                                 } else {
                                     Toast.makeText(
@@ -107,8 +108,14 @@ class RegisterFragment : Fragment() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
-//                            }
-//                        }
+//                            }.addOnFailureListener{
+//
+//                                            Toast.makeText(context, "failed to create user", Toast.LENGTH_SHORT).show()
+                                        }
+                        }else{
+                                    Toast.makeText(context, "Please Use Strong Password", Toast.LENGTH_SHORT).show()
+                                }
+
                         } else {
                             Toast.makeText(
                                 context,
@@ -117,7 +124,9 @@ class RegisterFragment : Fragment() {
                             ).show()
                         }
 
-                    }
+                    }else{
+                            Toast.makeText(context, "your passwords does not match", Toast.LENGTH_SHORT).show()
+                        }
             } else {
                 Toast.makeText(context, "Please Fill Up All The Blanks", Toast.LENGTH_SHORT).show()
             }
@@ -129,7 +138,6 @@ class RegisterFragment : Fragment() {
         try {
             userCollectionRef.add(person).await()
             withContext(Dispatchers.Main) {
-                Toast.makeText(context, "Successfully saved data", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {

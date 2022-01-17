@@ -24,6 +24,8 @@ class ComponentsViewModel : ViewModel() {
     val componentsLiveData = MutableLiveData<List<ComponentModel>>()
     val componentsErrorLiveData = MutableLiveData<String>()
 
+    val selectedComponentImage = MutableLiveData<ComponentModel>()
+
 
 
     fun callComponents() {
