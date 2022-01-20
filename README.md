@@ -16,14 +16,14 @@ Kotlin
 
 ======================= User Stroies =======================>>
 
-As Engineers Guide user I want to add an elements/items so that I can see the all the items/elments when I need.
-As Engineers Guide user I want to be able to delete elements/items if there are no longer needed so that user knows the elmenets he has.
-As Engineers Guide user I want to be able to edite elements/items so that the user can update his elements.
-As Engineers Guide user I want to be able to see the picture in it's actual size.
-As Engineers Guide user I want to to be able to see the email of who added a new components so I can contact with him later.
-As Engineers Guide user I want to be able to have a PDF copy of that element so I can share it in diffrent application or print it.
-As Engineers Guide user I want to be able to have login and password to protect my information so that I can have privacy.
-As Engineers Guide user I want to quick and easy access to the resources from the app it self.
+- As Engineers Guide user I want to add an elements/items so that I can see the all the items/elments when I need.
+- As Engineers Guide user I want to be able to delete elements/items if there are no longer needed so that user knows the elmenets he has.
+- As Engineers Guide user I want to be able to edite elements/items so that the user can update his elements.
+- As Engineers Guide user I want to be able to see the picture in it's actual size.
+- As Engineers Guide user I want to to be able to see the email of who added a new components so I can contact with him later.
+- As Engineers Guide user I want to be able to have a PDF copy of that element so I can share it in diffrent application or print it.
+- As Engineers Guide user I want to be able to have login and password to protect my information so that I can have privacy.
+- As Engineers Guide user I want to quick and easy access to the resources from the app it self.
 
 ====================== my development process ========================>>
 
