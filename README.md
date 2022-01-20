@@ -38,7 +38,18 @@ Later on, during the coding process, I've faced a lot of difficulties such as ad
 - getting the users profile page after pressing on the thier email inside details fragment
 
 
-======================= pictures of the design  =======================>>
+====================== Upcoming ========================>>
+
+- messaging between two users.
+
+- making groups.
+
+- creating a fragment for added element by the user.
+
+- giving the price and of the elemnt and showing if it's avilable or not in amazom or noon ..etc.
+
+====================== functions work ========================>>
+
 
 
 
