@@ -63,6 +63,9 @@ class RegisterFragment : Fragment() {
 //        var databaseRef = FirebaseDatabase.getInstance().getReference("User")
         //========================================================================
 
+        binding.backButtonRegisterFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.registerButtonRegister.setOnClickListener() {
             val fName: String = binding.firstNameRegisterEditText.text.toString()
