@@ -81,10 +81,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/functionalityTextView_Details"
+                android:id="@+id/equationsTextView_Details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -109,9 +108,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/equationsTextView_Details"
+                android:id="@+id/functionalityTextView_Details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="left"
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
