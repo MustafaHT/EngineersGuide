@@ -1,7 +1,7 @@
 # EngineersGuide
 ======================== What is Engineers Guide? ========================>>
 
-Engineers Guide is an application that helps the engineers to memorize stuff and back for them when they need very easly. Instead of wasting a lot of time, the user can collect all the data/details of specific component and insert it inside cardan ite to return for it when he needs it. 
+Engineers Guide is an application that helps the engineers to memorize stuff and back for them when they need very easly. Instead of wasting a lot of time, the user can collect all the data/details of specific component and insert it inside card view to return for it when he needs it. 
 
 fothermore, this application will allow the user of inserting an image of that component, and having 3 resources as maximum.
 
