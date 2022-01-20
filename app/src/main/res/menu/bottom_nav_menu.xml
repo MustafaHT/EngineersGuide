@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <item
-            android:id="@+id/components"
+            android:id="@+id/componentRecyclerViewFragment"
                 android:title="@string/components"
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/ic_baseline_home_24"/>
         <item
-                android:id="@+id/favorite"
-                android:title="Favorite"
+                android:id="@+id/profileFragment"
+                android:title="Profile"
                 app:showAsAction="ifRoom"
-                android:icon="@drawable/ic_baseline_favorite_24"/>
+                android:icon="@drawable/ic_baseline_person_24"/>
 
 
 

@@ -1,7 +1,6 @@
 package com.example.engineersguide.main
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,21 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.MimeTypeFilter
-import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentEditBinding
 import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.FirebaseRepository
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.itextpdf.text.Jpeg
+import com.example.engineersguide.util.BottomNavHelper
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.internal.entity.CaptureStrategy
@@ -62,6 +56,8 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        BottomNavHelper.get().performHideBar()
+        BottomNavHelper.get().hideFab()
 
         Log.d(TAG, imageButtonNum.toString())
 
@@ -112,9 +108,10 @@ class EditFragment : Fragment() {
             selectedComponent.source1 = binding.source1EditTextEditFragment.text.toString()
             selectedComponent.source2 = binding.source2EditTextEditFragment.text.toString()
             selectedComponent.source3 = binding.source3EditTextEditFragment.text.toString()
+//            selectedComponent.username = FirebaseAuth.
             image?.let { it1 -> firestorageViewModel.uploadingComponentImage(it1) }
             viewModel.updateComponent(selectedComponent.id.toInt(), selectedComponent)
-            findNavController().navigate(R.id.action_editFragment_to_componentsFragment)
+            findNavController().popBackStack()
             imageButtonNum = 0
         }
         // here i used this code to give the title a limited length or limited number of characters that the user can use in the title editTextView

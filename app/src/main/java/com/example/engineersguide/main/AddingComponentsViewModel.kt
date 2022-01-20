@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.RequestManager
 import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.ApiServiceRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,8 @@ class AddingComponentsViewModel : ViewModel() {
         equation: String,
         res1: String,
         res2: String,
-        res3: String
+        res3: String,
+        username: String
     ) {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -46,7 +48,8 @@ class AddingComponentsViewModel : ViewModel() {
                     false,
                     res1,
                     res2,
-                    res3
+                    res3,
+                    username
                 )
                 val response = apiRepo.addComponent(component)
 

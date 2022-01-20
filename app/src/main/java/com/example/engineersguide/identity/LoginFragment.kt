@@ -67,14 +67,14 @@ class LoginFragment : Fragment() {
         val status = sharedPref.getBoolean("auth",false)
 
         if (status){
-            findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
+            findNavController().navigate(R.id.action_loginFragment2s_to_componentsFragment3)
         }
 
 
 
 
         binding.registerButton.setOnClickListener() {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
         }
 
         binding.loginButton.setOnClickListener() {
@@ -95,7 +95,7 @@ class LoginFragment : Fragment() {
                             ).show()
 
 //                            binding.loginMotionLayout.setTransitionVisibility(MotionLayout.VISIBLE)
-                            findNavController().navigate(R.id.action_loginFragment_to_componentsFragment)
+                            findNavController().navigate(R.id.action_loginFragment2s_to_componentsFragment3)
                         } else {
                             Toast.makeText(
                                 context,

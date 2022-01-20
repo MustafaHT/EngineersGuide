@@ -22,6 +22,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.engineersguide.R
 import com.example.engineersguide.databinding.FragmentDetailsBinding
 import com.example.engineersguide.model.components.ComponentModel
+import com.example.engineersguide.repositories.FirebaseRepository
+import com.example.engineersguide.util.BottomNavHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import java.io.FileOutputStream
@@ -43,6 +47,8 @@ class DetailsFragment : Fragment() {
 
     private val firestorageViewModel = FirestorageViewModel()
 
+    private val firebaseRepo = FirebaseRepository
+
 
     private val STORAGE_CODE = 1001
 
@@ -61,6 +67,8 @@ class DetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        BottomNavHelper.get().performHideBar()
+        BottomNavHelper.get().hideFab()
 
         viewModel.callComponents()
 
@@ -76,7 +84,7 @@ class DetailsFragment : Fragment() {
                 binding.source3TextViewDetails.text = component.source3
                 selectedComponent = component
 
-
+                binding.createdBy.text = "created by: ${selectedComponent.username}"
 
                 if(selectedComponent.componentImageUrl != ""){
                     binding.imageViewDetails.setOnClickListener {
@@ -210,6 +218,7 @@ class DetailsFragment : Fragment() {
             }
         }
 
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -223,7 +232,7 @@ class DetailsFragment : Fragment() {
         when(item.itemId){
             R.id.delete_item -> {
                 viewModel.deleteComponent(selectedComponent.id.toInt())
-                findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
+//                findNavController().navigate(R.id.action_detailsFragment_to_componentsFragment)
             }
             R.id.edit_item ->{
                 findNavController().navigate(R.id.action_detailsFragment_to_editFragment)

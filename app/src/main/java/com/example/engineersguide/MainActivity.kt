@@ -23,13 +23,16 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.engineersguide.databinding.ActivityMainBinding
 import com.example.engineersguide.databinding.FragmentWebBinding
 import com.example.engineersguide.main.FirestorageViewModel
 import com.example.engineersguide.main.WebFragment
+import com.example.engineersguide.repositories.FirebaseRepository
 import com.example.engineersguide.repositories.SHARED_PREF_FILE
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -59,59 +62,57 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
         Notification()
 
+        FirebaseRepository.init(this)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-                as NavHostFragment
 
-        navController = navHostFragment.navController
+//        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomBar)
+        val navigationHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+        navController = navigationHostFragment.navController
         setupActionBarWithNavController(navController)
-
 //        actionBar?.setDisplayHomeAsUpEnabled(false)
 //        actionBar?.setHomeButtonEnabled(false)
-
-
-
-
 
 
     }
 
     @SuppressLint("RestrictedApi")
     private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notification Title"
             val descreptionText = "Notification Descreption"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID,name,importance).apply {
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 var descreption = descreptionText
             }
-            val notificationManger: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManger: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManger.createNotificationChannel(channel)
         }
     }
 
-    private fun Notification(){
+    private fun Notification() {
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_home_24)
             .setContentTitle("Engineers Guide")
             .setContentText("Welcome To The Lighted Road")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        with(NotificationManagerCompat.from(this)){
+        with(NotificationManagerCompat.from(this)) {
             notify(notificationId, builder.build())
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp()
+//    }
 
-
-    // to disable back button completely
+//    ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView4) as NavHostFragment).navController.currentDestination?.label)
+    //     to disable back button completely
     override fun onBackPressed() {
 
-        when((supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController.currentDestination?.label){
-            "Browser" -> super.onBackPressed()
+        when ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment).navController.currentDestination?.label) {
+            "ComponentsRecyclerView" -> super.onBackPressed()
 
             "Edit" -> super.onBackPressed()
 
@@ -119,21 +120,22 @@ class MainActivity : AppCompatActivity() {
 
             "Add Component" -> super.onBackPressed()
 
-            "Components" -> if (isBackPressOnce + 2000 > System.currentTimeMillis()){
-                super.onBackPressed()
-            }else{
-                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
-                isBackPressOnce = System.currentTimeMillis()
-            }
+//            "Components" -> if (isBackPressOnce + 2000 > System.currentTimeMillis()) {
+//                super.onBackPressed()
+//            } else {
+//                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
+//                isBackPressOnce = System.currentTimeMillis()
+//            }
 
-            "Login" ->  if (isBackPressOnce + 2000 > System.currentTimeMillis()){
-                super.onBackPressed()
-            }else{
-                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
-                isBackPressOnce = System.currentTimeMillis()
-            }
+//            "Login" -> if (isBackPressOnce + 2000 > System.currentTimeMillis()) {
+//                super.onBackPressed()
+//            } else {
+//                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
+//                isBackPressOnce = System.currentTimeMillis()
+//            }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -141,7 +143,9 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-
-
 }
+
+
+
+
+

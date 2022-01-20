@@ -8,24 +8,6 @@
     android:background="@color/lightBlack">
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/swipeToRefresh">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/componentsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_anchor="@+id/progressBar"
-            app:layout_anchorGravity="center" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.ProgressBar.Large"
@@ -34,29 +16,13 @@
         android:layout_gravity="center" />
 
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomBar"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView4"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:fabCradleMargin="8dp"
-        android:backgroundTint="@color/color_nav_bottom_bar"
-        app:fabCradleRoundedCornerRadius="30dp"
-        android:layout_gravity="bottom"
-        app:hideOnScroll="false"
-        app:itemIconTint="@color/nav_bottom">
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@android:color/transparent"
-        app:itemIconTint="@color/nav_bottom"
-        app:itemTextColor="@color/nav_bottom"
-        app:menu="@menu/bottom_nav_menu" />
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_eng_guide" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -65,16 +31,31 @@
         android:backgroundTint="#FFD600"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_anchor="@id/bottomBar"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="TODO" />
 
-    <ImageView
-        android:id="@+id/noComponentImageView_ComponentFragment"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_anchor="@+id/componentsRecyclerView"
-        app:layout_anchorGravity="center"
-        app:srcCompat="@drawable/components" />
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/color_nav_bottom_bar"
+        app:fabCradleMargin="8dp"
+        app:fabCradleRoundedCornerRadius="30dp"
+        app:hideOnScroll="false"
+        app:itemIconTint="@color/nav_bottom">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            app:itemIconTint="@color/nav_bottom"
+            app:itemTextColor="@color/nav_bottom"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

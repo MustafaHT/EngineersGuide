@@ -73,8 +73,7 @@ class RegisterFragment : Fragment() {
             val bioTextView: String = binding.bioTextViewEditText.text.toString()
 
             val user = User(fName, lName, email, password, bioTextView)
-            saveUser(user)
-            Log.d(TAG, "")
+            Log.d(TAG, user.toString())
 
 
 //  ===========================================================================
@@ -93,6 +92,8 @@ class RegisterFragment : Fragment() {
                                         .addOnCompleteListener() { task ->
                                     Log.d(TAG,"check for password")
                                 if (task.isSuccessful) {
+                                    saveUser(user)
+                                    Log.d(TAG,"$user")
                                     Toast.makeText(
                                         context,
                                         "Registered Successfully",
@@ -100,7 +101,7 @@ class RegisterFragment : Fragment() {
                                     ).show()
                                     Log.d(TAG,"successful")
 
-                                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                    findNavController().navigate(R.id.action_registerFragment2_to_loginFragment2)
                                 } else {
                                     Toast.makeText(
                                         context,
@@ -136,7 +137,7 @@ class RegisterFragment : Fragment() {
     private fun saveUser(person: User) = CoroutineScope(Dispatchers.IO).launch {
 
         try {
-            userCollectionRef.add(person).await()
+            userCollectionRef.document(FirebaseAuth.getInstance().uid.toString()).set(person).await()
             withContext(Dispatchers.Main) {
             }
         } catch (e: Exception) {

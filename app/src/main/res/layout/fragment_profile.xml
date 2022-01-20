@@ -9,50 +9,104 @@
     tools:context=".identity.ProfileFragment" >
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/profilePhoto"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         android:src="@drawable/download"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/fullName_profile_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="28dp"
-        android:textStyle="bold"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/profilePhoto">
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullName_profile_textView" />
 
-    <TextView
-        android:id="@+id/bio_profile_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-42dp"
+            tools:layout_editor_absoluteY="266dp">
+
+
+            <EditText
+                android:id="@+id/firstName_profile_EditText"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="273dp" />
+
+
+            <EditText
+                android:id="@+id/lastName_profile_editText"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteY="273dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/bioTextViewEditText"
+                android:layout_width="328dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edittextshape"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:hint="@string/write_your_bio"
+                android:inputType="textMultiLine"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="44dp"
+                tools:layout_editor_absoluteY="570dp" />
+
+            <TextView
+                android:id="@+id/email_Profile_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:text="@string/textview"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/saveButton_Profile"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:enabled="false"
+                android:backgroundTint="@color/gray"
+                android:layout_marginTop="80dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

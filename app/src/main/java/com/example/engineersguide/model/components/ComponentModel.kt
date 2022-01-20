@@ -26,5 +26,7 @@ data class ComponentModel(
     @SerializedName("source2")
     var source2: String,
     @SerializedName("source3")
-    var source3: String
+    var source3: String,
+    @SerializedName("username")
+    var username: String
 )

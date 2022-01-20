@@ -12,17 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.example.engineersguide.R
-import com.example.engineersguide.api.ComponentsAPI
 import com.example.engineersguide.databinding.FragmentAddingComponentsBinding
+import com.example.engineersguide.identity.ProfileViewModel
 import com.example.engineersguide.model.components.ComponentModel
 import com.example.engineersguide.repositories.ApiServiceRepository
 import com.example.engineersguide.repositories.FirebaseRepository
+import com.example.engineersguide.util.BottomNavHelper
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.zhihu.matisse.Matisse
@@ -34,6 +34,8 @@ private lateinit var apiServiceRepository: ApiServiceRepository
 private const val TAG = "AddingComponentsFragment"
 
 class AddingComponentsFragment : Fragment() {
+
+    private var user = com.example.engineersguide.datamodels.User()
 
     private val IMAGE_PICKER = 0
     private var image: Uri? = null
@@ -53,6 +55,11 @@ class AddingComponentsFragment : Fragment() {
 
     private val viewModel: ComponentsViewModel by activityViewModels()
 
+    private val profileViewModel = ProfileViewModel()
+
+
+
+
     private var imageButtonNum = 0
     private lateinit var imageView:String
 
@@ -71,6 +78,8 @@ class AddingComponentsFragment : Fragment() {
     @SuppressLint("LongLogTag")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        BottomNavHelper.get().performHideBar()
+        BottomNavHelper.get().hideFab()
 
         observer()
 
@@ -89,9 +98,13 @@ class AddingComponentsFragment : Fragment() {
 
 
 
+
         binding.addComponent.setOnClickListener {
-            viewModel.selectedComponent.observe(viewLifecycleOwner, {
-                it?.let { component ->
+//            viewModel.selectedComponent.observe(viewLifecycleOwner, {
+//                it?.let { component ->
+
+
+
                     val title = binding.titleEditText.text.toString()
                     if (imageButtonNum == 0) {
                          imageView =
@@ -105,6 +118,8 @@ class AddingComponentsFragment : Fragment() {
                     val source1 = binding.source1EditText.text.toString()
                     val source2 = binding.source2EditText.text.toString()
                     val source3 = binding.source3EditText.text.toString()
+                    val username = FirebaseAuth.getInstance().currentUser?.email.toString()
+
                     Log.d(TAG, "add Component Button")
                     addingComponentsViewModel.callComponents(
                         title,
@@ -114,13 +129,17 @@ class AddingComponentsFragment : Fragment() {
                         equation,
                         source1,
                         source2,
-                        source3
+                        source3,
+                        username
                     )
-                }
-            })
-            image?.let { it1 -> firestorageViewModel.uploadingComponentImage(it1) }
+//                }
+
+
+//            })
             viewModel.callComponents()
-            findNavController().navigate(R.id.action_addingComponentsFragment_to_componentsFragment)
+            image?.let { it1 ->
+                firestorageViewModel.uploadingComponentImage(it1) }
+            findNavController().popBackStack()
 
         }
 

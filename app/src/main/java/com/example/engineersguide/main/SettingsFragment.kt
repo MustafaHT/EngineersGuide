@@ -43,7 +43,6 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val bundle = Bundle()
         sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE, MODE_PRIVATE)
 
 //        sharedPref.getBoolean("toggleButton",binding.btnCenter.isSelected)

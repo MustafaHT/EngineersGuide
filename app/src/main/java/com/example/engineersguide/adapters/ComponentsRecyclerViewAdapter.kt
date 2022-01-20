@@ -97,12 +97,12 @@ class ComponentsRecyclerViewAdapter(private val context: Context, val viewModel:
 
         holder.itemView.setOnClickListener {
             viewModel.selectedComponent.postValue(item)
-            it.findNavController().navigate(R.id.action_componentsFragment_to_detailsFragment)
+            it.findNavController().navigate(R.id.action_componentRecyclerViewFragment_to_detailsFragment)
         }
 
-        if (holder.descreptionTextView.text.length >= 75) {
+        if (holder.descreptionTextView.text.length >= 69) {
             holder.descreptionTextView.text =
-                holder.descreptionTextView.text.substring(0, 75 - 3) + "..."
+                holder.descreptionTextView.text.substring(0, 69 - 3) + "..."
         }
 
 

@@ -13,7 +13,10 @@ interface ComponentsDao {
     suspend fun insertComponents(ComponentApi: List<ComponentModel>)
 
 
-    @Query("SELECT * FROM componentmodel")
+    @Query("SELECT * FROM componentModel")
     suspend fun getComponents(): List<ComponentModel>
+
+    @Query("SELECT * FROM componentModel WHERE isFavorite")
+    suspend fun getFavoriteProducts() : List<ComponentModel>
 
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/component_nav_graph"
+    app:startDestination="@id/loginFragment2s">
+    <fragment
+        android:id="@+id/loginFragment2s"
+        android:name="com.example.engineersguide.identity.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment2_to_registerFragment2"
+            app:destination="@id/registerFragment222" />
+        <action
+            android:id="@+id/action_loginFragment2s_to_componentsFragment3"
+            app:destination="@id/componentsFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment222"
+        android:name="com.example.engineersguide.identity.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment2_to_loginFragment2"
+            app:destination="@id/loginFragment2s" />
+    </fragment>
+    <fragment
+        android:id="@+id/componentsFragment3"
+        android:name="com.example.engineersguide.main.ComponentsFragment"
+        android:label="ComponentsFragment" >
+        <action
+            android:id="@+id/action_componentsFragment3_to_loginFragment2s"
+            app:destination="@id/loginFragment2s" />
+        <action
+            android:id="@+id/action_componentsFragment3_to_nav_eng_guide"
+            app:destination="@id/nav_eng_guide" />
+    </fragment>
+    <include app:graph="@navigation/nav_eng_guide" />
+</navigation>
