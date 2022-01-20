@@ -62,6 +62,10 @@ class ProfileFragment : Fragment() {
 
 
 
+        binding.backButtonProfileFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
         binding.profilePhoto.setOnClickListener {
             ImagePicker()

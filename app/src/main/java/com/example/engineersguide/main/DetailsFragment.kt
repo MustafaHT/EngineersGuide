@@ -184,6 +184,10 @@ class DetailsFragment : Fragment() {
             }
         })
 
+        binding.backButtonDetailsFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
 
         binding.imageButtonForSource1.setOnClickListener {

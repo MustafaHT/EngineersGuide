@@ -10,18 +10,23 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationBuilderWithBuilderAccessor
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -45,7 +50,7 @@ val CHANNEL_ID = "channel_id_example_01"
 val notificationId = 101
 
 
-
+//private val TAG_Fragment = "TAG_FRAGMENT"
 class MainActivity : AppCompatActivity() {
 
     private var isBackPressOnce = 0L
@@ -66,10 +71,13 @@ class MainActivity : AppCompatActivity() {
 
 
 //        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomBar)
-        val navigationHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
-        navController = navigationHostFragment.navController
-        setupActionBarWithNavController(navController)
+
+        //this is for navigation back button in the action bar
+
+//        val navigationHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+//        navController = navigationHostFragment.navController
+//        setupActionBarWithNavController(navController)
 //        actionBar?.setDisplayHomeAsUpEnabled(false)
 //        actionBar?.setHomeButtonEnabled(false)
 
@@ -103,6 +111,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
 //    override fun onSupportNavigateUp(): Boolean {
 //        return navController.navigateUp()
 //    }
@@ -110,15 +120,17 @@ class MainActivity : AppCompatActivity() {
 //    ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView4) as NavHostFragment).navController.currentDestination?.label)
     //     to disable back button completely
     override fun onBackPressed() {
+//        super.onBackPressed()
 
-        when ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment).navController.currentDestination?.label) {
-            "ComponentsRecyclerView" -> super.onBackPressed()
 
-            "Edit" -> super.onBackPressed()
-
-            "Details" -> super.onBackPressed()
-
-            "Add Component" -> super.onBackPressed()
+//        when ((supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment).navController.currentDestination?.label) {
+//            "ComponentsRecyclerView" -> super.onBackPressed()
+//
+//            "Edit" -> super.onBackPressed()
+//
+//            "Details" -> super.onBackPressed()
+//
+//            "Add Component" -> super.onBackPressed()
 
 //            "Components" -> if (isBackPressOnce + 2000 > System.currentTimeMillis()) {
 //                super.onBackPressed()
@@ -133,7 +145,7 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(this, "Press back again to exit app", Toast.LENGTH_SHORT).show()
 //                isBackPressOnce = System.currentTimeMillis()
 //            }
-        }
+//        }
     }
 
 

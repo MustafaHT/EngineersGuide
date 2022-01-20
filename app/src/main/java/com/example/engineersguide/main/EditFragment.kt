@@ -85,6 +85,11 @@ class EditFragment : Fragment() {
 
             }
         })
+
+        binding.backButtonEditFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.saveComponentEditFragment.setOnClickListener {
             selectedComponent.componentName = binding.titleEditTextEditFragment.text.toString()
 

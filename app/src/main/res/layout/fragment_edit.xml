@@ -25,6 +25,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <ImageButton
+                android:id="@+id/backButton_editFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/lightBlack"
+                android:src="@drawable/ic_baseline_keyboard_backspace_24" />
+
             <EditText
                 android:id="@+id/title_EditText_EditFragment"
                 android:layout_width="match_parent"

@@ -32,9 +32,5 @@
         <action
             android:id="@+id/action_componentsFragment3_to_loginFragment2s"
             app:destination="@id/loginFragment2s" />
-        <action
-            android:id="@+id/action_componentsFragment3_to_nav_eng_guide"
-            app:destination="@id/nav_eng_guide" />
     </fragment>
-    <include app:graph="@navigation/nav_eng_guide" />
 </navigation>

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 private const val TAG = "ProfileViewModel"
 class ProfileViewModel:ViewModel() {
 
-    val saveusersLiveDate = MutableLiveData<User>()
+    val saveUsersLiveDate = MutableLiveData<User>()
     val UploadProfileLiveDate = MutableLiveData<Uri>()
     val getUserLiveDate = MutableLiveData<User>()
     val usersErrorLiveData = MutableLiveData<String>()
@@ -39,7 +39,7 @@ class ProfileViewModel:ViewModel() {
             try {
                 firebaseRepository.save(userInfo).addOnSuccessListener {
                     Log.d(TAG, "saved")
-                    saveusersLiveDate.postValue(userInfo)
+                    saveUsersLiveDate.postValue(userInfo)
                 }.addOnFailureListener {
                     usersErrorLiveData.postValue(it.message.toString())
                     Log.d(TAG, it.message.toString())

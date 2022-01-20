@@ -96,6 +96,10 @@ class AddingComponentsFragment : Fragment() {
 
         }
 
+        binding.backButtonAddingFragment.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
 
 
