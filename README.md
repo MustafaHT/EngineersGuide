@@ -6,11 +6,11 @@ fothermore, this application will allow the user of inserting an image of that c
 
 ====================== List of technologies used =======================>>
 
-Android Studio
-mockAPi
-Firebase
-Figma
-Github
+Android Studio,
+mockAPi,
+Firebase,
+Figma,
+Github,
 Kotlin
 
 ======================= User Stroies =======================>>
@@ -22,6 +22,7 @@ As Engineers Guide user I want to be able to see the picture in it's actual size
 As Engineers Guide user I want to to be able to see the email of who added a new components so I can contact with him later.
 As Engineers Guide user I want to be able to have a PDF copy of that element so I can share it in diffrent application or print it.
 As Engineers Guide user I want to be able to have login and password to protect my information so that I can have privacy.
+As Engineers Guide user I want to quick and easy access to the resources from the app it self.
 
 ====================== my development process ========================>>
 
@@ -33,6 +34,8 @@ Later on, during the coding process, I've faced a lot of difficulties such as ad
 
 ====================== List unsolved problems ========================>>
 
+- back button creates a bug with bottom action bar.
+- getting the users profile page after pressing on the thier email inside details fragment
 
 
 ======================= pictures of the design  =======================>>
