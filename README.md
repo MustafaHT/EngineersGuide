@@ -56,4 +56,35 @@ Later on, during the coding process, I've faced a lot of difficulties such as ad
 ![Login](https://user-images.githubusercontent.com/91452250/150420044-faf88de3-426e-424b-83dd-dcfdd6c1799d.png)
 
 
+![Register](https://user-images.githubusercontent.com/91452250/150420097-dd0646c2-78ae-47a0-9d5f-96950599c46b.png)
+
+
+![ComponentFragment_NoComponents ](https://user-images.githubusercontent.com/91452250/150420150-4533f7ed-f6a5-47f6-bb04-4098be9a5562.png)
+
+
+![addingComponent](https://user-images.githubusercontent.com/91452250/150420186-37a699f2-93ef-4b39-be9d-043cd1a578b2.png)
+
+
+![ComponentsFragment Swipe](https://user-images.githubusercontent.com/91452250/150420239-1045f05f-dfb3-478d-ad66-7ec1c6862587.png)
+
+
+![ComponentDetails](https://user-images.githubusercontent.com/91452250/150420277-05ad18aa-51ce-4627-85b8-2c9952d459fd.png)
+
+
+![DetailsElements](https://user-images.githubusercontent.com/91452250/150420300-b8ec3078-8b3c-4ab8-bc6b-4f268477c80b.png)
+
+
+![ImageDialog](https://user-images.githubusercontent.com/91452250/150420314-27e4ebcc-9f7b-4c65-93d2-37b1ef106df0.png)
+
+
+![Profile](https://user-images.githubusercontent.com/91452250/150420337-5e219d89-fb00-452a-b90e-ca98e47bec32.png)
+
+
+
+
+
+
+
+
+
 
